@@ -1490,7 +1490,7 @@ header .logo a {
  * ------------------------------------------------------------------- 
  */
 #about {
-	background: #FFFFFF;
+	background: rgb(87, 87, 97);
 	padding-top: 12rem;
 	padding-bottom: 15rem;
 }
@@ -1790,7 +1790,7 @@ header .logo a {
  * ------------------------------------------------------------------- 
  */
 #portfolio {
-	background: #FFFFFF;
+	background: rgb(2, 17, 3);
 	padding-top: 12rem;
 	padding-bottom: 12rem;
 }
@@ -1841,7 +1841,7 @@ header .logo a {
 }
 
 #portfolio .folio-title {
-	color: #FFFFFF;
+	color: #8b7e7e;
 	font-size: 3.3rem;
 	padding: 0 3rem;
 	margin-bottom: 0;
@@ -1894,7 +1894,7 @@ header .logo a {
  */
 .popup-modal {
 	max-width: 550px;
-	background: #FFFFFF;
+	background: rgb(49, 145, 46)98, 175;
 	position: relative;
 	margin: 0 auto;
 }

@@ -1490,7 +1490,7 @@ header .logo a {
  * ------------------------------------------------------------------- 
  */
 #about {
-	background: #FFFFFF;
+	background: rgb(87, 87, 97);
 	padding-top: 12rem;
 	padding-bottom: 15rem;
 }
@@ -1790,7 +1790,7 @@ header .logo a {
  * ------------------------------------------------------------------- 
  */
 #portfolio {
-	background: #FFFFFF;
+	background: rgb(2, 17, 3);
 	padding-top: 12rem;
 	padding-bottom: 12rem;
 }
