@@ -117,6 +117,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    # providing path of all the css,fonts,image,inc,js to django that I have all the files in Design folder
+    os.path.join(BASE_DIR,'Designs'),
+]
+# after informing django the path, we are telling that you have to create a new folder assets where you will keep thosse files
+STATIC_ROOT = os.path.join(BASE_DIR,'assets')
+# run these command in terminal in order to make django do your
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
