@@ -1,4 +1,6 @@
 {% load static %}
+{% static 'images/portfolio/modals' as BaseSourceOfModelsImage %}
+{% static 'images/portfolio' as BaseSourceOfFolioImage %}
 <!DOCTYPE html>
 <!--[if IE 8 ]><html class="no-js oldie ie8" lang="en"> <![endif]-->
 <!--[if IE 9 ]><html class="no-js oldie ie9" lang="en"> <![endif]-->
@@ -74,7 +76,7 @@
    			<div class="col-twelve">
 
 	   			<h5>Hello, World.</h5>
-	   			<h1>{{name}}</h1>
+	   			<h1>Mohit Dwivedi</h1>
 
 	   			<p class="intro-position">
 	   				<span>Aspiring Data Scientist</span>
@@ -140,7 +142,7 @@
    				</li>
    				<li>
    					<strong>LinkedIn</strong>
-   					<a href="https://github.com/DarkImpact1"><span>click here</span></a>
+   					<a href="https://github.com/DarkImpact1" target="_blank"><span>click here</span></a>
    				</li>
    				<li>
    					<strong>Email:</strong>
@@ -386,224 +388,48 @@
    			<!-- portfolio-wrapper -->
 	         <div id="folio-wrapper" class="block-1-2 block-mob-full stack">
 
-	         	<div class="bgrid folio-item">
-	               <div class="item-wrap">
-	               	<img src="{% static 'images/portfolio/extractpass.jpg' %}" alt="Liberty">
-	                  <a href="#modal-01" class="overlay">	                  	           
-	                     <div class="folio-item-table">
-	                     	<div class="folio-item-cell">
-		     					       <h3 class="folio-title">Saved Wi-fi Password Extractor</h3>	     					    
-		     					    	 <span class="folio-types">
-		     					       	  Python
-		     					       </span>
-		     					   </div>	                      	
-	                     </div>                    
-	                  </a>
-	               </div>	               
-	        		</div> <!-- /folio-item -->
+				{% for project in allprojects %}
 
 	        		<div class="bgrid folio-item">
 	               <div class="item-wrap">
-	               	<img src="{% static 'images/portfolio/youtubeplaydown.jpg' %}" alt="Shutterbug">
-	               	<a href="#modal-02" class="overlay">              		                  
+	               	<img src="{{BaseSourceOfFolioImage}}/{{project.image}}" alt={{project.name}}>
+	               	<a href="{{project.href}}" class="overlay">              		                  
 	                     <div class="folio-item-table">
 	                     	<div class="folio-item-cell">
-	                     		<h3 class="folio-title">Youtube Playlist Downloader</h3>	     					    
+	                     		<h3 class="folio-title">{{project.name}}</h3>	     					    
 		     					    	<span class="folio-types">
-		     					       	  Python
+		     					       	  {{project.categories}}
 		     					      </span>		     		
 		     					   </div> 	                      	
 	                     </div>                    
 	                  </a>
 	               </div>
-	        		</div> <!-- /folio-item -->
-
-	            <div class="bgrid folio-item">
-	               <div class="item-wrap">
-	               	<img src="{% static 'images/portfolio/django.png' %}"alt="Clouds">
-	                  <a href="#modal-03" class="overlay">             		                  
-	                     <div class="folio-item-table">
-	                     	<div class="folio-item-cell">
-	                     		<h3 class="folio-title">Django</h3>	     					    
-		     					    	<span class="folio-types">
-		     					       	  
-										Backend Web Dev
-		     					      </span>		     		
-		     					   </div> 	                      	
-	                     </div>                    
-	                  </a>
-	               </div>
-	        		</div> <!-- /folio-item -->
-
-	            <div class="bgrid folio-item">
-	               <div class="item-wrap">
-	               	<img src="{% static 'images/portfolio/emailauto.png' %}" alt="Beetle">
-	                  <a href="#modal-04" class="overlay">                  	                 
-	                     <div class="folio-item-table">
-	                     	<div class="folio-item-cell">
-	                     		<h3 class="folio-title">Email Automation</h3>	     					    
-		     					    	<span class="folio-types">
-											Python
-		     					      </span>		     		
-		     					   </div>  	                      	
-	                     </div>                    
-	                  </a>
-	               </div>
-	        		</div> <!-- /folio-item -->     
-
-	        		<div class="bgrid folio-item">
-	               <div class="item-wrap">
-	               	<img src="{% static 'images/portfolio/virtualassistant.png' %}" alt="Lighthouse">
-	                  <a href="#modal-05" class="overlay">             		                  
-	                     <div class="folio-item-table">
-	                     	<div class="folio-item-cell">
-	                     		<h3 class="folio-title">Virtal Assistant</h3>	     					    
-		     					    	<span class="folio-types">
-		     					       	  Python
-		     					      </span>		     		
-		     					   </div> 	                      	
-	                     </div>                    
-	                  </a>
-	               </div>
-	        		</div> <!-- /folio-item -->
-
-	            <div class="bgrid folio-item">
-	               <div class="item-wrap">
-	               	<img src="{% static 'images/portfolio/notepadclone.png' %}" alt="Salad">
-	                  <a href="#modal-06" class="overlay">
-	                     <div class="folio-item-table">
-	                     	<div class="folio-item-cell">
-	                     		<h3 class="folio-title">Notepad (Clone)</h3>	     					    
-		     					    	<span class="folio-types">
-		     					       	  Python
-		     					      </span>		     		
-		     					   </div>	                      	
-	                     </div>                    
-	                  </a>
-	               </div>
-	        		</div> <!-- /folio-item -->   
+	        		</div> <!-- /folio-item --> 
 
 	            <!-- modal popups - begin
 	            ============================================================= -->
-	            <div id="modal-01" class="popup-modal slider mfp-hide">	
+
+	            <div id="{{project.id}}" class="popup-modal slider mfp-hide">
 
 				     	<div class="media">
-				     		<img src="{% static 'images/portfolio/modals/m-extractpass.jpg' %}" alt="" />
+				     		<img src="{{BaseSourceOfModelsImage}}/{{project.image}}" alt="" />
 				     	</div>      	
 
 					   <div class="description-box">
-					      <h4>Saved Wi-Fi Password Extractor (Windows)</h4>		      
-					      <p>Developed a Python script capable of extracting saved passwords from Windows credentials and securely sending them to a designated email address. This utility enhances user convenience by centralizing password retrieval while prioritizing data privacy and security through controlled email transmission.</p>
+					      <h4>{{project.name}}</h4>      
+					      <p>{{project.description}}</p>
 
-					      <div class="categories">Python</div>			               
+					      <div class="categories">{{project.categories}}</div>     
 					   </div>
 
 			         <div class="link-box">
-			            <a href="https://github.com/DarkImpact1/Saved_Wifi_ssid_pwd_Extractor" target="_blank">Show</a>
+			            <a href="{{project.link}}" target="_blank">Show</a>
 					      <a href="#" class="popup-modal-dismiss">Close</a>
 			         </div>		      
 
-				   </div> <!-- /modal-01 -->
+				   </div> <!-- /modal -->
 
-				   <div id="modal-02" class="popup-modal slider mfp-hide">	
-
-				     	<div class="media">
-				     		<img src="{% static 'images/portfolio/modals/m-youtubeplaydown.jpg' %}" alt="" />
-				     	</div>      	
-
-					   <div class="description-box">
-					      <h4>Youtube Playlist Downloader</h4>		      
-					      <p>With Python, I'm creating a YouTube playlist downloader offering customization options. Users can select video quality, destination folder, and specify the number of videos to download. Utilizing the YouTube API and libraries like pytube, the project aims to streamline the process of building a personalized offline playlist.</p>
-
-					      <div class="categories">Python</div>			               
-					   </div>
-
-			         <div class="link-box">
-			            <a href="https://github.com/DarkImpact1/YoutubePlaylistDownloader" target="_blank">Show</a>
-					      <a href="#" class="popup-modal-dismiss">Close</a>
-			         </div>		      
-
-				   </div> <!-- /modal-02 -->
-
-				   <div id="modal-03" class="popup-modal slider mfp-hide">	
-
-				     	<div class="media">
-				     		<img src="{% static 'images/portfolio/modals/m-django.png' %}" alt="" />
-				     	</div>      	
-
-					   <div class="description-box">
-					      <h4>Clouds</h4>		      
-					      <p>Crafting a dynamic portfolio using Django in Python, my project showcases web development skills. Utilizing Django's MVC architecture, I design an interactive and responsive portfolio website. Features include project showcases, a contact form, and an admin interface for easy content management and updates.</p>
-
-					      <div class="categories">Backend Web-Dev</div>			               
-					   </div>
-
-			         <div class="link-box">
-			            <a href="https://github.com/DarkImpact1/Django" target="_blank">Show</a>
-					      <a href="#" class="popup-modal-dismiss">Close</a>
-			         </div>		      
-
-				   </div> <!-- /modal-03 -->
-
-				   <div id="modal-04" class="popup-modal slider mfp-hide">	
-
-				     	<div class="media">
-				     		<img src="{% static 'images/portfolio/modals/m-emailauto.png' %}" alt="" />
-				     	</div>      	
-
-					   <div class="description-box">
-					      <h4>Email Automation</h4>		      
-					      <p>Automating email tasks using Python, my project simplifies communication. Leveraging libraries like smtplib and imaplib, it allows users to schedule, organize, and automate emails. With features like email categorization, auto-responses, and scheduled sending, the email manager enhances efficiency and communication management in a business or personal setting.</p>
-
-					      <div class="categories">Python</div>			               
-					   </div>
-
-			         <div class="link-box">
-			            <a href="https://github.com/DarkImpact1/email_manager" target="_blank">showcases</a>
-					      <a href="#" class="popup-modal-dismiss">Close</a>
-			         </div>		      
-
-				   </div> <!-- /modal-04 -->
-
-				   <div id="modal-05" class="popup-modal slider mfp-hide">	
-
-				     	<div class="media">
-				     		<img src="{% static 'images/portfolio/modals/m-virtualassistant.png' %}" alt="" />
-				     	</div>      	
-
-					   <div class="description-box">
-					      <h4>Virtual Assistant</h4>		      
-					      <p>Why to waste our energy when you have you assistance by your side 24 x 7.My Python-based virtual assistant integrates natural language processing and automation to execute tasks. Leveraging libraries like speech recognition and pyttsx3, the assistant responds to voice commands, handling functions like setting reminders, answering queries, and controlling system features. Aiming for enhanced user productivity, it's a versatile tool for daily tasks.</p>
-
-					      <div class="categories">Python</div>			               
-					   </div>
-
-			         <div class="link-box">
-			            <a href="https://github.com/DarkImpact1/Virtual-Assistant" target="_blank">Show</a>
-					      <a href="#" class="popup-modal-dismiss">Close</a>
-			         </div>		      
-
-				   </div> <!-- /modal-05 -->
-
-				   <div id="modal-06" class="popup-modal slider mfp-hide">	
-
-				     	<div class="media">
-				     		<img src="{% static 'images/portfolio/modals/m-notepadclone.png' %}" alt="" />
-				     	</div>      	
-
-					   <div class="description-box">
-					      <h4>Notepad (Clone) .. currently Halted </h4>		      
-					      <p>Developing a Python-based Notepad clone, I focus on replicating essential features like text editing, file handling, and user-friendly interface. Leveraging tkinter for GUI, the project emphasizes simplicity and efficiency, providing users with a lightweight yet functional text editor akin to the traditional Notepad.</p>
-
-					      <div class="categories">Python (Tkinter)</div>			               
-					   </div>
-
-			         <div class="link-box">
-			            <a href="https://github.com/DarkImpact1/Notepad-Clone-Using-Python" target="_blank">show</a>
-					      <a href="#" class="popup-modal-dismiss">Close</a>
-			         </div>		      
-
-				   </div> <!-- /modal-06 -->
+				   {% endfor %}
 
 
 				   <!-- modal popups - end
