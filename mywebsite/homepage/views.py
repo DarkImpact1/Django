@@ -4,9 +4,16 @@ import random
 # Create your views here.
 
 def home(request):
-    name = ['Mohit','Dark Impact','ezz_programming']
+    name = ['Mohit Dwivedi','Dark Impact','ezz_programming']
     return render(request,'index.html', {'name' : name[random.randint(0,2)]})
 
+
+def contacted(request):
+    name = request.POST["contactName"]
+    email = request.POST["contactEmail"]
+    subject = request.POST["contactSubject"]
+    message = request.POST['contactMessage']
+    
 # these function will work once you change the name of home.html to index.html
 
 
