@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+
+    'homepage.apps.HomepageConfig',# list the app name with which you are working
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -74,10 +76,17 @@ WSGI_APPLICATION = 'mywebsite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# before adding your database install the connector of database to python like for postgres
+# connector is psycopg2  so write command in terminal 'pip install psycopg2'
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME' : 'Portfolio', # name of the database
+        'USER' : 'postgres',# enter the name of user who have access to database
+        'PASSWORD' : '2003',
+        'HOST' : 'localhost',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+
     }
 }
 
@@ -116,16 +125,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     # providing path of all the css,fonts,image,inc,js to django that I have all the files in Design folder
     os.path.join(BASE_DIR,'Designs'),
 ]
 # after informing django the path, we are telling that you have to create a new folder assets where you will keep thosse files
 STATIC_ROOT = os.path.join(BASE_DIR,'assets')
-# run these command in terminal in order to make django do your
+# run these command in terminal in order to make django do your collectstatci
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# adding media root to work with media
+MEDIA_URL = ''
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')#second arg is name of folder you want to create
