@@ -29,10 +29,10 @@ def logout(request):
 
 def register(request):
     if (request.method == 'POST'):
-        f_name = request.POST["firstName"]
-        l_name = request.POST["lastName"]
+        f_name = request.POST["firstName"].capitalize()
+        l_name = request.POST["lastName"].capitalize()
         u_name = request.POST["username"]
-        e_mail = request.POST["email"]
+        e_mail = request.POST["email"].lower()
         pass1 = request.POST["password"]
         cpass = request.POST["confirmPassword"]
         # print(f_name,l_name,u_name,e_mail,pass1,cpass)
