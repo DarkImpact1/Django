@@ -1,0 +1,27 @@
+<!-- login.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h2>Login</h2>
+    <form method="post" action="login">
+        {% csrf_token %}
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="loginusername" required><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="loginpassword" required><br>
+        <input type="submit" value="Login">
+    </form>
+    <div>
+        {% for message in messages %}
+            {{message}}
+
+            {% endfor %}
+    </div>
+</body>
+</html>

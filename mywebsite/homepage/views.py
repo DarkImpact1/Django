@@ -5,8 +5,5 @@ from .models import Project_Detail
 # Create your views here.
 
 def home(request):
-    # name = ['Mohit Dwivedi','Dark Impact','ezz_programming']
     projects = Project_Detail.objects.all()
-
-    
     return render(request,'index.html', {'allprojects' : projects})
