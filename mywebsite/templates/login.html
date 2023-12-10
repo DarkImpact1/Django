@@ -57,12 +57,29 @@
             color: #ff0000;
             margin-top: 10px;
         }
+        .message {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ffffff;
+            color: #ff0000;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
 
         /* Add any additional styling as needed */
     </style>
 </head>
 <body>
     <h2>Login</h2>
+    <div class="message">
+        {% for message in messages %}
+        <li><a href="accounts/register" title="Register"><i>{{message}}</i></a></li>
+            
+        {% endfor %}
+    </div>
     <form method="post" action="login">
         {% csrf_token %}
         <label for="username">Username:</label>
@@ -71,10 +88,5 @@
         <input type="password" id="password" name="loginpassword" required><br>
         <input type="submit" value="Login">
     </form>
-    <div>
-        {% for message in messages %}
-            {{message}}
-        {% endfor %}
-    </div>
 </body>
 </html>

@@ -7,7 +7,7 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 20px;
+      margin: 100px;
     }
 
     form {
@@ -36,9 +36,27 @@
     input[type="submit"]:hover {
       background-color: #45a049;
     }
+
+    .message {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #ffffff;
+      color: #ff0000;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 20px;
+  }
+
   </style>
 </head>
 <body>
+  <div class="message">
+    {% for message in messages %}
+    <h3>{{message}} </h3>
+    {% endfor %}
+  </div>
 
   <form action="register" method="post">
     {% csrf_token %}
@@ -63,11 +81,7 @@
     <input type="submit" value="Submit">
   </form>
 
-  <div>
-    {% for message in messages %}
-    <h3>{{message}} </h3>
-    {% endfor %}
-  </div>
+
 
 </body>
 </html>

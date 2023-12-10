@@ -7,5 +7,4 @@ from django.contrib import messages
 
 def home(request):
     projects = Project_Detail.objects.all()
-    print(projects)
     return render(request,'index.html', {'allprojects' : projects})

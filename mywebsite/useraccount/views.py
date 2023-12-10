@@ -9,15 +9,18 @@ def login(request):
     if (request.method == 'POST'):
         l_username = request.POST['loginusername']
         l_password = request.POST['loginpassword']
-        user = auth.authenticate(username=l_username,password=l_password)
-        # it will return none if credentials do not match
-        if user is not None:
-            auth.login(request,user)
-            return redirect('/')
+        if (User.objects.filter(username = l_username)).exists():
+            user = auth.authenticate(username=l_username,password=l_password)
+            # it will return none if credentials do not match
+            if user is not None:
+                auth.login(request,user)
+                return redirect('/')
+            else:
+                messages.info(request,"Invalid credentials")
+                return redirect('login') 
         else:
-            messages.info(request,"Invalid credentials")
+            messages.error(request,"Kindly Register First!")
             return redirect('login')
-        
     else:
         return render(request,'login.html')
 
@@ -60,4 +63,5 @@ def register(request):
         print(request.method)
         return render(request, 'register.html')
     
-
+def userdetail(request):
+    pass
