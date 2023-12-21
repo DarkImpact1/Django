@@ -2,6 +2,6 @@ from django.db import models
 
 # Create your models here.
 
-class Userdetail(models.Model):
+class Userdetail():
     introduction = models.TextField()
     pass
