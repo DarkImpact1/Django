@@ -967,7 +967,7 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 	position: relative;
 	height: 100%;
 }
-.skill-bars li .progress span {
+/* .skill-bars li .progress span {
 	position: absolute;
 	right: 0;
 	top: -3.6rem;
@@ -979,7 +979,7 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 	background: #313131;
 	padding: .6rem .6rem;
 	border-radius: 3px;
-}
+} */
 .skill-bars li .progress span::after {
 	position: absolute;
 	left: 50%;

@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.contrib.auth.models import User,auth
 from django.http import HttpResponse
+from .models import Userdetail
 
 
 # Create your views here.
@@ -64,4 +65,22 @@ def register(request):
         return render(request, 'register.html')
     
 def userdetail(request):
-    pass
+    if (request.method == 'POST'):
+        user = Userdetail(full_name = request.POST["name"].capitalize(),e_mail = request.POST["email"].lower(),
+        skills = request.POST["skills"].split(','),
+        profile_photo = request.POST["profile_photo"],
+        bio = request.POST["bio"],
+        carrer_goal = request.POST['career_goal'])
+        # user.save()
+        return redirect('educationdetails')
+        # return HttpResponse("Your are here at user details ")
+    else:
+        return render(request,'details1.html')
+        # 
+
+def education_details(request):
+    if (request.method == 'POST'):
+        return HttpResponse("Your are here at user details ")
+    else:
+        print("rendering edacation.html")
+        return render(request,'education.html')

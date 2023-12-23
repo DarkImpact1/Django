@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education Details </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            width: 100%;
+            max-width: 800px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative; /* Add relative positioning to position the button */
+        }
+
+        .container {
+            flex: 1;
+            padding: 10px;
+            box-sizing: border-box;
+            margin: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            position: absolute; /* Position the button */
+            bottom: 20px; /* Adjust the bottom spacing */
+            right: 20px; /* Adjust the right spacing */
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        h2, h3 {
+            color: #333;
+        }
+
+    </style>
+</head>
+<body>
+    
+   <form  method="post" action="educationdetails" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="container">
+            <h3>College Details</h3>
+            <label for="collegeName">College Name:</label>
+            <input type="text" id="collegeName" name="collegeName" placeholder="Enter college name" >
+
+            <label for="degreeName">Degree Name:</label>
+            <input type="text" id="degreeName" name="degreeName" placeholder="Enter degree name (B.Tech (CSE))" >
+
+            <label for="collegeStart">Start Month/Year:</label>
+            <input type="month" id="collegeStart" name="collegeStart" >
+
+            <label for="collegeEnd">End Month/Year:</label>
+            <input type="month" id="collegeEnd" name="collegeEnd" >
+
+            <label for="aboutCollege">About College:</label>
+            <textarea id="aboutCollege" name="aboutCollege" placeholder="Your experience in college, CGPA" rows="4" ></textarea>
+        </div>
+
+        <div class="container">
+            <h3>12th Grade Details</h3>
+            <label for="12thSchoolName">School Name:</label>
+            <input type="text" id="12thSchoolName" name="12thSchoolName" placeholder="Enter school name" >
+
+            <label for="12thBoard">Board:</label>
+            <input type="text" id="12thBoard" name="12thBoard" placeholder="Enter board name" >
+
+            <label for="12thStart">Start Month/Year:</label>
+            <input type="month" id="12thStart" name="12thStart" >
+
+            <label for="12thEnd">End Month/Year:</label>
+            <input type="month" id="12thEnd" name="12thEnd" >
+
+            <label for="about12th">About 12th Grade:</label>
+            <textarea id="about12th" name="about12th" placeholder="Your experience in 12th grade, CGPA/percent" rows="4" ></textarea>
+        </div>
+
+        <div class="container">
+            <h3>10th Grade Details</h3>
+            <label for="10thSchoolName">School Name:</label>
+            <input type="text" id="10thSchoolName" name="10thSchoolName" placeholder="Enter school name" >
+
+            <label for="10thBoard">Board:</label>
+            <input type="text" id="10thBoard" name="10thBoard" placeholder="Enter board name" >
+
+            <label for="10thStart">Start Month/Year:</label>
+            <input type="month" id="10thStart" name="10thStart" >
+
+            <label for="10thEnd">End Month/Year:</label>
+            <input type="month" id="10thEnd" name="10thEnd" >
+
+            <label for="about10th">About 10th Grade:</label>
+            <textarea id="about10th" name="about10th" placeholder="Your experience in 10th grade, percent" rows="4" ></textarea>
+        </div>
+
+        <button type="button">Submit</button>
+    </form>
+</body>
+</html>
