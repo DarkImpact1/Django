@@ -1,0 +1,6 @@
+{
+    "version": 2,
+    "builds": [{ "src": "vercel-django-handler.sh", "use": "@vercel/node" }],
+    "routes": [{ "src": "/(.*)", "dest": "/vercel-django-handler.sh" }]
+  }
+  

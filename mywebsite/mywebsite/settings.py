@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-gfi236h*_r#kj9-(vx2^qx6@ssta$mzckc@@9_=*^2!#$ok2t#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['.vercel.app']
 INSTALLED_APPS = [
 
     'homepage.apps.HomepageConfig',# list the app name with which you are working
+    'useraccount',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
