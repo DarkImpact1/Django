@@ -81,12 +81,12 @@
 
 	   			<h5>Hello, World</h5>
 				{% if user.is_authenticated %}
-					<h1>{{user.first_name }} {{user.last_name}}</h1>
+					<h1>{{user.first_name }} {{users.full_name}}</h1>
 					<p class="intro-position">
-						<span>Aspiring Data Scientist</span>
-						<span> AI & ML</span> 
+						<span>{{ users.carrer_goal }}</span>
 					</p>
-					<a class="button stroke smoothscroll" href="accounts/details" title= "Details">Enter you details</a>
+					<a href="accounts/details" title="Details" style="border: 2px solid rgb(240, 10, 48); padding: 15px; margin:10px; color:white " >Enter your details</a>
+
 				{% else %}
 	   			<h1>User</h1>
 				   <a class="button stroke smoothscroll" href="accounts/register" title="">Click Here to register</a>
@@ -122,7 +122,7 @@
    <!-- about section
    ================================================== -->
 
-   {% if user.is_authenticated and user.username == 'mohit' or user.username == 'suraj' %}
+   {% if users  %}
    <section id="about">  
 
    	<div class="row section-intro">
@@ -135,7 +135,7 @@
 
    				<img src="{% static 'images/profile-pic.jpg' %}" alt="Profile Picture">
 
-   				<p class="lead">I am a passionate BTech student with expertise in Python, Matplotlib, Pandas, NumPy, and Django. My technical acumen extends to a foundational understanding of machine learning. As a devoted enthusiast of technology, I am eager to explore and contribute to the ever-evolving landscape of programming and data science.</p>
+   				<p class="lead">{{ logged_in_user.bio }}</p>
    			</div>   			
 
    		</div>   		
@@ -150,7 +150,7 @@
    			<ul class="info-list">
    				<li>
    					<strong>Fullname:</strong>
-   					<span>Mohit Dwivedi</span>
+   					<span>{{ logged_in_user.full_name }}</span>
    				</li>
    				<li>
    					<strong>Birth Date:</strong>
@@ -166,7 +166,7 @@
    				</li>
    				<li>
    					<strong>Email:</strong>
-   					<span>mohit.dev.new@gmail.com</span>
+   					<span>{{ logged_in_user.e_mail }}</span>
    				</li>
 
    			</ul> <!-- /info-list -->
@@ -176,37 +176,14 @@
    		<div class="col-six tab-full">
 
    			<h3>Skills</h3>
-   			<p>I've learned these skills and applied them to gain experience.</p>
 
 				<ul class="skill-bars" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+					{% for skill in skills %}
 				   <li>
 				   	<div class="progress percent100"></div>
-				   	<strong>Python</strong>
+				   	<strong>{{ skill }}</strong>
 				   </li>
-				   <li>
-				   	<div class="progress percent100"></div>
-				   	<strong>Pandas</strong>
-				   </li>
-				   <li>
-				   	<div class="progress percent100"></div>
-				   	<strong>Django</strong>
-				   </li>
-				   <li>
-				   	<div class="progress percent100"></div>
-				   	<strong>Matplotlib</strong>
-				   </li>
-				   <li>
-					<div class="progress percent100"></div>
-					<strong>HTML</strong>
-					</li>
-				   <li>
-				   	<div class="progress percent100"></div>
-				   	<strong>Wordpress</strong>
-				   </li>
-				   <li>
-					<div class="progress percent100"></div>
-					<strong>C++</strong>
-					</li>
+				   {% endfor %}
 				</ul> <!-- /skill-bars -->		
 
    		</div>

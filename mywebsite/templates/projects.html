@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Project Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #adadad;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #project-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .project-details {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 400px; /* Adjust the maximum width as needed */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px; /* Adjust the top margin as needed */
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <form  action="projects" method="post">
+        {% csrf_token %}
+        <!-- Repeat this block for each project -->
+        <div class="project-details">
+            <label for="name">Project Name:</label>
+            <input type="text" name="projectname" required>
+
+            <label for="image">Image:</label>
+            <input type="file" id="image" name="image" accept="image/*">
+
+            <label for="htmlid">HTML ID:</label>
+            <input type="text" name="htmlid" required>
+
+            <label for="href">Href:</label>
+            <input type="text" name="href" required>
+
+            <label for="description">Project Description:</label>
+            <textarea name="description" rows="4" required></textarea>
+
+            <label for="category">Category:</label>
+            <input type="text" name="category" required>
+
+            <label for="link">Link:</label>
+            <input type="url" name="link" required>
+        </div>
+        <button type="submit">Add More Project</button>
+        <form action="projects" method="get">
+            <button type="submit">Submit</button>
+        </form>
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Congratulations Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        #congratulations {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        #displayButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="congratulations">
+        Congratulations!
+    </div>
+
+    <form action="congrats" method="post">
+        {% csrf_token %}
+        <button id="displayButton" type="submit">Display</button>
+    </form>
+
+</body>
+</html>
