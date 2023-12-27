@@ -4,32 +4,34 @@
 <!DOCTYPE html>
 <!--[if IE 8 ]><html class="no-js oldie ie8" lang="en"> <![endif]-->
 <!--[if IE 9 ]><html class="no-js oldie ie9" lang="en"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="no-js" lang="en"> <!--<![endif]-->
+
 <head>
 
-   <!--- basic page needs
+	<!--- basic page needs
    ================================================== -->
-   <meta charset="utf-8">
+	<meta charset="utf-8">
 	<title>Portfolio</title>
-	<meta name="description" content="">  
+	<meta name="description" content="">
 	<meta name="author" content="">
 
-   <!-- mobile specific metas
+	<!-- mobile specific metas
    ================================================== -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
- 	<!-- CSS
+	<!-- CSS
    ================================================== -->
-   <link rel="stylesheet" href="{% static 'css/base.css' %}">  
-   <link rel="stylesheet" href="{% static 'css/main.css' %}">
-   <link rel="stylesheet" href="{% static 'css/vendor.css' %}">     
+	<link rel="stylesheet" href="{% static 'css/base.css' %}">
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+	<link rel="stylesheet" href="{% static 'css/vendor.css' %}">
 
-   <!-- script
-   ================================================== -->   
+	<!-- script
+   ================================================== -->
 	<script src="{% static 'js/modernizr.js' %}"></script>
 	<script src="{% static 'js/pace.min.js' %}"></script>
 
-   <!-- favicons
+	<!-- favicons
 	================================================== -->
 	<link rel="icon" type="image/png" href="favicon.png">
 
@@ -39,405 +41,473 @@
 
 	<!-- header 
    ================================================== -->
-   <header>   	
-   	<div class="row">
+	<header>
+		<div class="row">
 
-   		<div class="top-bar">
-   			<a class="menu-toggle" href="#"><span>Menu</span></a>
-	   		<div class="logo">
-		         <a href="index.html">Click</a>
-		      </div>		      
+			<div class="top-bar">
+				<a class="menu-toggle" href="#"><span>Menu</span></a>
+				<div class="logo">
+					<a href="index.html">Click</a>
+				</div>
 
-		   	<nav id="main-nav-wrap"> 
+				<nav id="main-nav-wrap">
 					<ul class="main-navigation">
-						{% if user.is_authenticated and user.username == 'mohit' or user.username == 'suraj' %}
-						<li class="current"><a class="smoothscroll"  href="#intro" title="">Home</a></li>
-						<li><a class="smoothscroll"  href="#about" title="">About</a></li>
-						<li><a class="smoothscroll"  href="#resume" title="">Resume</a></li>
-						<li><a class="smoothscroll"  href="#portfolio" title="">Portfolio</a></li>
-						<li><a class="smoothscroll"  href="#services" title="">Services</a></li>					
-						<li><a class="smoothscroll"  href="#contact" title="">Contact</a></li>	
+						{% if user.is_authenticated %}
+						<li class="current"><a class="smoothscroll" href="#intro" title="">Home</a></li>
+						{% if users %}
+						<li><a class="smoothscroll" href="#about" title="">About</a></li>
+						{% endif %}
+						<li><a class="smoothscroll" href="#resume" title="">Resume</a></li>
+						{% if projects %}
+						<li><a class="smoothscroll" href="#portfolio" title="">Portfolio</a></li>
+						{% endif %}
+						<li><a class="smoothscroll" href="#services" title="">Services</a></li>
+						{% if contacts %}
+						<li><a class="smoothscroll" href="#contact" title="">Contact</a></li>
+						{% endif %}
+						<li class="current"><a class="smoothscroll" href="accounts/logout" title="">Logout</a></li>
 						{% else %}
-						<li class="current"><a class="smoothscroll"  href="#intro" title="">Home</a></li>
-						{% endif %}						
-						
+						<li class="current"><a class="smoothscroll" href="#intro" title="">Home</a></li>
+
+						{% endif %}
+
 					</ul>
-				</nav>    		
-   		</div> <!-- /top-bar --> 
-   		
-   	</div> <!-- /row --> 		
-   </header> <!-- /header -->
+				</nav>
+			</div> <!-- /top-bar -->
+
+		</div> <!-- /row -->
+	</header> <!-- /header -->
 
 	<!-- intro section
    ================================================== -->
-   <section id="intro">   
+	<section id="intro">
 
-   	<div class="intro-overlay"></div>	
+		<div class="intro-overlay"></div>
 
-   	<div class="intro-content">
-   		<div class="row">
+		<div class="intro-content">
+			<div class="row">
 
-   			<div class="col-twelve">
+				<div class="col-twelve">
 
-	   			<h5>Hello, World</h5>
-				{% if user.is_authenticated %}
-					<h1>{{user.first_name }} {{users.full_name}}</h1>
+					<h5>Hello, World</h5>
+					{% if user.is_authenticated %}
+					<h1>{{user.first_name }} {{user.last_name}}</h1>
+
+
+					{% if users %}
 					<p class="intro-position">
-						<span>{{ users.carrer_goal }}</span>
+						{% for userd in users %}
+						<span>{{ userd.carrer_goal }}</span>
+						{% endfor %}
 					</p>
-					<a href="accounts/details" title="Details" style="border: 2px solid rgb(240, 10, 48); padding: 15px; margin:10px; color:white " >Enter your details</a>
-
-				{% else %}
-	   			<h1>User</h1>
-				   <a class="button stroke smoothscroll" href="accounts/register" title="">Click Here to register</a>
-				</a>
-				{% endif %}
+					{% else %}
+					<p class="intro-position">
+						<span>------- ------ ------</span>
+					</p>
+					{% endif %}
 
 
+					{%if not users %}
+					<a href="accounts/details" title="Details"
+						style="border: 2px solid rgb(240, 10, 48); padding: 15px; margin:10px; color:white ">Enter your
+						details</a>
 
-	   			
+					{% elif not contacts %}
+					<a href="accounts/contacts" title="Details"
+						style="border: 2px solid rgb(240, 10, 48); padding: 15px; margin:10px; color:white ">Enter your
+						Contact details</a>
 
-	   		</div>  
-   			
-   		</div>   		 		
-   	</div> <!-- /intro-content --> 
+					{% elif not users_education %}
+					<a href="accounts/education" title="Details"
+						style="border: 2px solid rgb(240, 10, 48); padding: 15px; margin:10px; color:white ">Enter your
+						Education details</a>
 
-   	<ul class="intro-social">
-		{% if user.is_authenticated and user.username == 'mohit' or user.username == 'suraj' %}     
-		<li><a href="https://www.facebook.com/profile.php?id=100008695454006" target="_blank"><i class="fa fa-facebook" ></i></a></li>
-         <li><a href="https://twitter.com/dmohit013" target="_blank"><i class="fa fa-twitter"></i></a></li>
-         <li><a href="https://github.com/DarkImpact1" target="_blank"><i class="fa fa-dribbble"></i></a></li>
-         <li><a href="https://www.instagram.com/dmohit13/" target="_blank"><i class="fa fa-instagram"></i></a></li>
-		 <li><a href="accounts/logout" title="Login">Logout<i ></i></a></li>
-		 {% elif user.is_authenticated %}
-		 <li><a href="accounts/logout" title="Login">Logout<i ></i></a></li>
-		 {% else %}
-		 <li><a href="accounts/register" title="Register">Register<i ></i></a></li>
-		 <li><a href="accounts/login" title="Login">Login<i ></i></a></li>
-		 {% endif %}
-      </ul> <!-- /intro-social -->      	
+					{%elif not allprojects %}
+					<a href="accounts/projects" title="Details"
+						style="border: 2px solid rgb(240, 10, 48); padding: 15px; margin:10px; color:white ">Enter your
+						Project details</a>
 
-   </section> <!-- /intro -->
+					{% else %}
+					<a class="button stroke smoothscroll" href="#about" title="">About Me</a>
 
-   <!-- about section
+					{% endif %}
+					{% else %}
+					<h1>User</h1>
+					<a class="button stroke smoothscroll" href="accounts/register" title="">Click Here to register</a>
+					</a>
+					{% endif %}
+
+
+
+
+
+				</div>
+
+			</div>
+		</div> <!-- /intro-content -->
+
+		<ul class="intro-social">
+			{% if user.is_authenticated %}
+			{% if contacts %}
+			{% for user in contacts %}
+			<li><a href="{{user.facebook}}" target="_blank" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+			<li><a href="{{user.twitter}}" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+			<li><a href="{{user.github}}" target="_blank" title="Github"><i class="fa fa-dribbble"></i></a></li>
+			<li><a href="{{user.instagram}}" target="_blank" title="Instagram"><i class="fa fa-instagram"></i></a></li>
+			<li><a href="accounts/logout" title="Login">Logout<i></i></a></li>
+			{% endfor %}
+			{% else %}
+			<li><a href="accounts/logout" title="Login">Logout<i></i></a></li>
+			{% endif %}
+			{% else %}
+			<li><a href="accounts/register" title="Register">Register<i></i></a></li>
+			<li><a href="accounts/login" title="Login">Login<i></i></a></li>
+			{% endif %}
+		</ul> <!-- /intro-social -->
+
+	</section> <!-- /intro -->
+
+	<!-- about section
    ================================================== -->
 
-   {% if users  %}
-   <section id="about">  
+	{% if users %}
+	{% for userd in users %}
+	<section id="about">
 
-   	<div class="row section-intro">
-   		<div class="col-twelve">
+		<div class="row section-intro">
+			<div class="col-twelve">
 
-   			<h5>About</h5>
-   			<h1>Let me introduce myself.</h1>
+				<h5>About</h5>
+				<h1>Let me introduce myself.</h1>
 
-   			<div class="intro-info">
+				<div class="intro-info">
 
-   				<img src="{% static 'images/profile-pic.jpg' %}" alt="Profile Picture">
+					<img src="{{userd.profile_photo.url}}" alt="Profile Picture">
 
-   				<p class="lead">{{ logged_in_user.bio }}</p>
-   			</div>   			
+					<p class="lead">{{ userd.bio }}</p>
+				</div>
 
-   		</div>   		
-   	</div> <!-- /section-intro -->
+			</div>
+		</div> <!-- /section-intro -->
 
-   	<div class="row about-content">
+		<div class="row about-content">
 
-   		<div class="col-six tab-full">
+			<div class="col-six tab-full">
 
-   			<h3>Profile</h3>
+				<h3>Profile</h3>
 
-   			<ul class="info-list">
-   				<li>
-   					<strong>Fullname:</strong>
-   					<span>{{ logged_in_user.full_name }}</span>
-   				</li>
-   				<li>
-   					<strong>Birth Date:</strong>
-   					<span>January 13, 2003</span>
-   				</li>
-   				<li>
-   					<strong>Job:</strong>
-   					<span>Freelancer, Data analysis, Data visualizations</span>
-   				</li>
-   				<li>
-   					<strong>LinkedIn</strong>
-   					<a href="https://github.com/DarkImpact1" target="_blank"><span>click here</span></a>
-   				</li>
-   				<li>
-   					<strong>Email:</strong>
-   					<span>{{ logged_in_user.e_mail }}</span>
-   				</li>
+				<ul class="info-list">
+					<li>
+						<strong>Fullname:</strong>
+						<span>{{ userd.full_name }}</span>
+					</li>
+					<li>
+						<strong>Birth Date:</strong>
+						<span>January 13, 2003</span>
+					</li>
+					<li>
+						<strong>Job:</strong>
+						<span>Freelancer, Data analysis, Data visualizations</span>
+					</li>
+					<li>
+						<strong>LinkedIn</strong>
+						<a href="https://github.com/DarkImpact1" target="_blank"><span>click here</span></a>
+					</li>
+					<li>
+						<strong>Email:</strong>
+						<span>{{ userd.e_mail }}</span>
+					</li>
 
-   			</ul> <!-- /info-list -->
+				</ul> <!-- /info-list -->
 
-   		</div>
+			</div>
+			{% endfor %}
+			<div class="col-six tab-full">
 
-   		<div class="col-six tab-full">
-
-   			<h3>Skills</h3>
+				<h3>Skills</h3>
 
 				<ul class="skill-bars" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
 					{% for skill in skills %}
-				   <li>
-				   	<div class="progress percent100"></div>
-				   	<strong>{{ skill }}</strong>
-				   </li>
-				   {% endfor %}
-				</ul> <!-- /skill-bars -->		
+					<li>
+						<div class="progress percent100"></div>
+						<strong>{{ skill }}</strong>
+					</li>
+					{% endfor %}
+				</ul> <!-- /skill-bars -->
 
-   		</div>
+			</div>
 
-   	</div>
+		</div>
 
-   	<div class="row button-section">
-   		<div class="col-twelve">
-   			<a href="#contact" title="Hire Me" class="button stroke smoothscroll">Hire Me</a>
-   			<a href="#" title="Download CV" class="button button-primary">Download CV</a>
-   		</div>   		
-   	</div>
+		<div class="row button-section">
+			<div class="col-twelve">
+				<a href="#contact" title="Hire Me" class="button stroke smoothscroll">Hire Me</a>
+				<a href="#" title="Download CV" class="button button-primary">Download CV</a>
+			</div>
+		</div>
 
-   </section> <!-- /process-->    
+	</section> <!-- /process-->
 
+	{% endif %} <!--ending if of users -->
 
-   <!-- resume Section
+	<!-- resume Section
    ================================================== -->
 	<section id="resume" class="grey-section">
 
 		<div class="row section-intro">
-   		<div class="col-twelve">
+			<div class="col-twelve">
 
-   			<h5>Resume</h5>
-   			<h1>More of my credentials.</h1>
+				<h5>Resume</h5>
+				<h1>More of my credentials.</h1>
 
-   			<p class="lead">Some of the work I did and learned so many thing.</p>
+				<p class="lead">Some of the work I did and learned so many thing.</p>
 
-   		</div>   		
-   	</div> <!-- /section-intro--> 
+			</div>
+		</div> <!-- /section-intro-->
 
-   	<div class="row resume-timeline">
+		<div class="row resume-timeline">
 
-   		<div class="col-twelve resume-header">
+			<div class="col-twelve resume-header">
 
-   			<h2>Work Experience</h2>
+				<h2>Work Experience</h2>
 
-   		</div> <!-- /resume-header -->
+			</div> <!-- /resume-header -->
 
-   		<div class="col-twelve">
+			<div class="col-twelve">
 
-   			<div class="timeline-wrap">
+				<div class="timeline-wrap">
 
-   				<div class="timeline-block">
+					<div class="timeline-block">
 
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-graduation-cap"></i>
-	   				</div>
+						<div class="timeline-ico">
+							<i class="fa fa-graduation-cap"></i>
+						</div>
 
-	   				<div class="timeline-header">
-	   					<h3>Freelancer</h3>
-	   					<p></p>
-	   				</div>
+						<div class="timeline-header">
+							<h3>Freelancer</h3>
+							<p></p>
+						</div>
 
-	   				<div class="timeline-content">
-	   					<h4>Email Automation</h4>
-	   					<p>I provided freelance assistance by developing a bespoke email automation solution for a client. The customized code enables efficient, one-click dispatch of multiple emails to diverse recipients, each with distinct subject lines and content. This tailored automation streamlines communication processes, enhancing productivity and facilitating targeted outreach with precision.</p>
-	   				</div>
+						<div class="timeline-content">
+							<h4>Email Automation</h4>
+							<p>I provided freelance assistance by developing a bespoke email automation solution for a
+								client. The customized code enables efficient, one-click dispatch of multiple emails to
+								diverse recipients, each with distinct subject lines and content. This tailored
+								automation streamlines communication processes, enhancing productivity and facilitating
+								targeted outreach with precision.</p>
+						</div>
 
-	   			</div> <!-- /timeline-block -->
+					</div> <!-- /timeline-block -->
 
-	   			<div class="timeline-block">
+					<div class="timeline-block">
 
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-graduation-cap"></i>
-	   				</div>
+						<div class="timeline-ico">
+							<i class="fa fa-graduation-cap"></i>
+						</div>
 
-	   				<div class="timeline-header">
-	   					<h3>Mini Game</h3>
-	   					<p>November 2022</p>
-	   				</div>
+						<div class="timeline-header">
+							<h3>Mini Game</h3>
+							<p>November 2022</p>
+						</div>
 
-	   				<div class="timeline-content">
-	   					<h4>College Project</h4>
-	   					<p>I crafted a Python-based mini-game, integrating a graphical user interface, for an engaging rendition of Rock, Paper, Scissors. This project showcases my proficiency in software development and UI design. The game offers an interactive and visually appealing experience, exemplifying my commitment to creating both functional and aesthetically pleasing applications.</p>
-	   				</div>
+						<div class="timeline-content">
+							<h4>College Project</h4>
+							<p>I crafted a Python-based mini-game, integrating a graphical user interface, for an
+								engaging rendition of Rock, Paper, Scissors. This project showcases my proficiency in
+								software development and UI design. The game offers an interactive and visually
+								appealing experience, exemplifying my commitment to creating both functional and
+								aesthetically pleasing applications.</p>
+						</div>
 
-	   			</div> <!-- /timeline-block -->
+					</div> <!-- /timeline-block -->
 
-	   			<div class="timeline-block">
+					<div class="timeline-block">
 
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-graduation-cap"></i>
-	   				</div>
+						<div class="timeline-ico">
+							<i class="fa fa-graduation-cap"></i>
+						</div>
 
-	   				<div class="timeline-header">
-	   					<h3>Content Writer</h3>
-	   					<p>July 2021 - December 2021</p>
-	   				</div>
+						<div class="timeline-header">
+							<h3>Content Writer</h3>
+							<p>July 2021 - December 2021</p>
+						</div>
 
-	   				<div class="timeline-content">
-	   					<h4>Chegg India Pvt. Ltd.</h4>
-	   					<p>I have six months of professional experience as a content writer at Chegg India Pvt. Ltd., where I honed my skills in creating high-quality content. During this time, I also acquired expertise in Search Engine Optimization (SEO), enhancing my ability to craft content that aligns with best practices for online visibility and reach.</p>
-	   				</div>
+						<div class="timeline-content">
+							<h4>Chegg India Pvt. Ltd.</h4>
+							<p>I have six months of professional experience as a content writer at Chegg India Pvt.
+								Ltd., where I honed my skills in creating high-quality content. During this time, I also
+								acquired expertise in Search Engine Optimization (SEO), enhancing my ability to craft
+								content that aligns with best practices for online visibility and reach.</p>
+						</div>
 
-	   			</div> <!-- /timeline-block -->
+					</div> <!-- /timeline-block -->
 
-   			</div> <!-- /timeline-wrap -->   			
+				</div> <!-- /timeline-wrap -->
 
-   		</div> <!-- /col-twelve -->
-   		
-   	</div> <!-- /resume-timeline -->
-   	
-   	<div class="row resume-timeline">
+			</div> <!-- /col-twelve -->
 
-   		<div class="col-twelve resume-header">
+		</div> <!-- /resume-timeline -->
 
-   			<h2>Education</h2>
+		{% if users_education %}
+		{% for userd in users_education %}
 
-   		</div> <!-- /resume-header -->
+		<div class="row resume-timeline">
 
-   		<div class="col-twelve">
+			<div class="col-twelve resume-header">
 
-   			<div class="timeline-wrap">
+				<h2>Education</h2>
 
-   				<div class="timeline-block">
+			</div> <!-- /resume-header -->
 
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-briefcase"></i>
-	   				</div>
+			<div class="col-twelve">
 
-	   				<div class="timeline-header">
-	   					<h3>Under Graduation Degree</h3>
-	   					<p>July 2022 - Present</p>
-	   				</div>
+				<div class="timeline-wrap">
 
-	   				<div class="timeline-content">
-	   					<h4>Lovely Professional University</h4>
-	   					<p>A dedicated student at Lovely Professional University, I actively engage in co-curricular activities and contribute to the university's vibrant community. As a proud member of the National Cadet Corps (NCC), I exemplify discipline and leadership. My commitment to academic excellence, combined with diverse participation, underscores my holistic approach to personal and professional development.</p>
-	   				</div>
+					<div class="timeline-block">
 
-	   			</div> <!-- /timeline-block -->
+						<div class="timeline-ico">
+							<i class="fa fa-briefcase"></i>
+						</div>
 
-	   			<div class="timeline-block">
+						<div class="timeline-header">
+							<h3>{{ userd.degree_name }}</h3>
+							<p>{{userd.college_start_year}} - {{userd.college_end_year}}</p>
+						</div>
 
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-briefcase"></i>
-	   				</div>
+						<div class="timeline-content">
+							<h4> {{userd.college_name}}</h4>
+							<p>{{ userd.about_college }}</p>
+						</div>
 
-	   				<div class="timeline-header">
-	   					<h3>Senior Secondary School</h3>
-	   					<p>July 2017 - June 2019</p>
-	   				</div>
+					</div> <!-- /timeline-block -->
 
-	   				<div class="timeline-content">
-	   					<h4>Einstein Public School</h4>
-	   					<p>As a former student at Einstein Public School, I achieved academic excellence by securing an impressive 82% in senior secondary education. This accomplishment reflects my commitment to scholastic pursuits. Beyond academics, my time at the institution nurtured a foundation for holistic growth, emphasizing both intellectual and personal development.</p>
-	   				</div>
+					<div class="timeline-block">
 
-	   			</div> <!-- /timeline-block -->
+						<div class="timeline-ico">
+							<i class="fa fa-briefcase"></i>
+						</div>
 
-	   			<div class="timeline-block">
+						<div class="timeline-header">
+							<h3>Senior Secondary School ({{userd.xii_school_board_name}}) </h3>
 
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-briefcase"></i>
-	   				</div>
+							<p>{{userd.xii_school_start}} - {{userd.xii_school_end}}</p>
+						</div>
 
-	   				<div class="timeline-header">
-	   					<h3>Metriculation</h3>
-	   					<p>May 2015 - June 2017</p>
-	   				</div>
+						<div class="timeline-content">
+							<h4>{{userd.xii_school_name}}</h4>
+							<p>{{ userd.about_xii_school }}</p>
+						</div>
 
-	   				<div class="timeline-content">
-	   					<h4>Einstein Public School</h4>
-	   					<p>A student of Einstein Public School, I distinguished myself by attaining an outstanding 95% in my matriculation. This academic success underscores my diligence and commitment to excellence. Beyond academics, I actively engaged in extracurricular activities, showcasing a well-rounded profile that reflects both scholastic prowess and a holistic approach to personal development.</p>
-	   				</div>
+					</div> <!-- /timeline-block -->
 
-	   			</div> <!-- /timeline-block -->
+					<div class="timeline-block">
 
-   			</div> <!-- /timeline-wrap -->   			
+						<div class="timeline-ico">
+							<i class="fa fa-briefcase"></i>
+						</div>
 
-   		</div> <!-- /col-twelve -->
-   		
-   	</div> <!-- /resume-timeline -->
-		
+						<div class="timeline-header">
+							<h3>Metriculation ({{userd.x_school_board_name}}) </h3>
+							<p>{{userd.x_school_start}} - {{userd.x_school_end}}</p>
+						</div>
+
+						<div class="timeline-content">
+							<h4>{{userd.x_school_name}}</h4>
+							<p>{{userd.about_x_school}}</p>
+						</div>
+
+					</div> <!-- /timeline-block -->
+
+				</div> <!-- /timeline-wrap -->
+
+			</div> <!-- /col-twelve -->
+
+		</div> <!-- /resume-timeline -->
+
 	</section> <!-- /features -->
 
+	{% endfor %}<!-- ending for of education -->
+	{% endif %}<!-- ending if of education -->
+
+
+	{% if allprojects %}
 
 	<!-- Portfolio Section
    ================================================== -->
 	<section id="portfolio">
 
 		<div class="row section-intro">
-   		<div class="col-twelve">
+			<div class="col-twelve">
 
-   			<h5>Portfolio</h5>
-   			<h1>Check Out Some of My Works.</h1>
+				<h5>Portfolio</h5>
+				<h1>Check Out Some of My Works.</h1>
 
-   			<p class="lead">I've did some project using my skills learned yet. Check it out.</p>
+				<p class="lead">I've did some project using my skills learned yet. Check it out.</p>
 
-   		</div>   		
-   	</div> <!-- /section-intro--> 
+			</div>
+		</div> <!-- /section-intro-->
 
-   	<div class="row portfolio-content">
+		<div class="row portfolio-content">
 
-   		<div class="col-twelve">
+			<div class="col-twelve">
 
-   			<!-- portfolio-wrapper -->
-	         <div id="folio-wrapper" class="block-1-2 block-mob-full stack">
+				<!-- portfolio-wrapper -->
+				<div id="folio-wrapper" class="block-1-2 block-mob-full stack">
 
-				{% for project in allprojects %}
+					{% for project in allprojects %}
 
-	        		<div class="bgrid folio-item">
-	               <div class="item-wrap">
-	               	<img src="{{project.image.url}}" alt={{project.name}}>
-	               	<a href="{{project.href}}" class="overlay">              		                  
-	                     <div class="folio-item-table">
-	                     	<div class="folio-item-cell">
-	                     		<h3 class="folio-title">{{project.name}}</h3>	     					    
-		     					    	<span class="folio-types">
-		     					       	  {{project.categories}}
-		     					      </span>		     		
-		     					   </div> 	                      	
-	                     </div>                    
-	                  </a>
-	               </div>
-	        		</div> <!-- /folio-item --> 
+					<div class="bgrid folio-item">
+						<div class="item-wrap">
+							<img src="{{project.image.url}}" alt={{project.name}}>
+							<a href="{{project.href}}" class="overlay">
+								<div class="folio-item-table">
+									<div class="folio-item-cell">
+										<h3 class="folio-title">{{project.name}}</h3>
+										<span class="folio-types">
+											{{project.categories}}
+										</span>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div> <!-- /folio-item -->
 
-	            <!-- modal popups - begin
+					<!-- modal popups - begin
 	            ============================================================= -->
 
-	            <div id="{{project.htmlid}}" class="popup-modal slider mfp-hide">
+					<div id="{{project.htmlid}}" class="popup-modal slider mfp-hide">
 
-				     	<div class="media">
-				     		<img src="{{project.image.url}}" alt="" />
-				     	</div>      	
+						<div class="media">
+							<img src="{{project.image.url}}" alt="" />
+						</div>
 
-					   <div class="description-box">
-					      <h4>{{project.name}}</h4>      
-					      <p>{{project.description}}</p>
+						<div class="description-box">
+							<h4>{{project.name}}</h4>
+							<p>{{project.description}}</p>
 
-					      <div class="categories">{{project.categories}}</div>     
-					   </div>
+							<div class="categories">{{project.categories}}</div>
+						</div>
 
-			         <div class="link-box">
-			            <a href="{{project.link}}" target="_blank">Show</a>
-					      <a href="#" class="popup-modal-dismiss">Close</a>
-			         </div>		      
+						<div class="link-box">
+							<a href="{{project.link}}" target="_blank">Show</a>
+							<a href="#" class="popup-modal-dismiss">Close</a>
+						</div>
 
-				   </div> <!-- /modal -->
+					</div> <!-- /modal -->
 
-				   {% endfor %}
+					{% endfor %}
 
 
-				   <!-- modal popups - end
+					<!-- modal popups - end
 	            ============================================================= -->
 
-	         </div> <!-- /portfolio-wrapper --> 
+				</div> <!-- /portfolio-wrapper -->
 
-   		</div>  <!-- /twelve -->   
+			</div> <!-- /twelve -->
 
-   	</div> <!-- /portfolio-content --> 
-		
-	</section> <!-- /portfolio --> 
+		</div> <!-- /portfolio-content -->
+
+	</section> <!-- /portfolio -->
 
 	<!-- services Section
    ================================================== -->
@@ -446,272 +516,313 @@
 		<div class="overlay"></div>
 
 		<div class="row section-intro">
-   		<div class="col-twelve">
+			<div class="col-twelve">
 
-   			<h5>Services</h5>
-   			<h1>What Can I Do For You?</h1>
+				<h5>Services</h5>
+				<h1>What Can I Do For You?</h1>
 
-   			<p class="lead">If you are looking for someone who can do your task, drop a message via email, or whatsapp then let's cook something delicious.</p>
+				<p class="lead">If you are looking for someone who can do your task, drop a message via email, or
+					whatsapp then let's cook something delicious.</p>
 
-   		</div>   		
-   	</div> <!-- /section-intro -->
+			</div>
+		</div> <!-- /section-intro -->
 
-   	<div class="row services-content">
+		<div class="row services-content">
 
-   		<div id="owl-slider" class="owl-carousel services-list">
-
-	      	<div class="service">	
-
-	      		<span class="icon"><i class="icon-earth"></i></span>            
-
-	            <div class="service-content">	
-
-	            	 <h3>Programming</h3>
-
-		            <p class="desc">Unlocking efficiency through code, I specialize in creating tailored solutions to simplify and streamline your tasks. Whether automating repetitive processes, optimizing workflows, or developing custom applications, my programming expertise ensures a seamless, time-saving experience tailored to your specific needs.
-	         		</p>
-	         		
-	         	</div> 	         	 
-
-				</div> <!-- /service -->
-
-				<div class="service">	
-
-					<span class="icon"><i class="icon-window"></i></span>                          
-
-	            <div class="service-content">	
-
-	            	<h3>Backend of web-dev</h3>  
-
-		            <p class="desc">Unlocking efficiency through code, I specialize in creating tailored solutions to simplify and streamline your tasks. Whether automating repetitive processes, optimizing workflows, or developing custom applications, my programming expertise ensures a seamless, time-saving experience tailored to your specific needs.
-	         		</p>
-
-	            </div>	                          
-
-			   </div> <!-- /service -->
-
-			   <div class="service">
-
-			   	<span class="icon"><i class="icon-paint-brush"></i></span>		            
-
-	            <div class="service-content">
-
-	            	<h3>Play with Data</h3>
-
-		            <p class="desc">Elevate your data landscape with my expertise. From dynamic visualizations that breathe life into your insights to in-depth data analysis unlocking valuable patterns, I am your partner in harnessing the full potential of your data. Let's turn information into actionable intelligence together.
-	        			</p> 
-
-	            </div> 	            	               
-
-			   </div> <!-- /service -->
+			<div id="owl-slider" class="owl-carousel services-list">
 
 				<div class="service">
 
-					<span class="icon"><i class="icon-toggles"></i></span>	              
+					<span class="icon"><i class="icon-earth"></i></span>
 
-	            <div class="service-content">
+					<div class="service-content">
 
-	            	<h3>Machine Learning</h3>
+						<h3>Programming</h3>
 
-		            <p class="desc">Transforming concepts into intelligent solutions, I specialize in building models that decode complex data patterns. Whether crafting machine learning or statistical models, my expertise ensures precision and predictive power. Let's collaborate to turn your ideas into robust, data-driven models that propel your projects to new heights of innovation and success.
-	         		</p> 
-	         		
-	            </div>                
+						<p class="desc">Unlocking efficiency through code, I specialize in creating tailored solutions
+							to simplify and streamline your tasks. Whether automating repetitive processes, optimizing
+							workflows, or developing custom applications, my programming expertise ensures a seamless,
+							time-saving experience tailored to your specific needs.
+						</p>
+
+					</div>
 
 				</div> <!-- /service -->
 
-			   <div class="service">
+				<div class="service">
 
-			   	<span class="icon"><i class="icon-image"></i></span>	            
+					<span class="icon"><i class="icon-window"></i></span>
 
-	            <div class="service-content">
+					<div class="service-content">
 
-	            	<h3>Content Writing</h3>
+						<h3>Backend of web-dev</h3>
 
-		            <p class="desc">I've accumulated valuable content writing expertise over several months, crafting engaging and informative pieces. My experience includes diverse topics, honing my skills in creating compelling narratives. I thrive in delivering high-quality content that resonates with readers, showcasing a passion for effective communication and a commitment to excellence.
-	        			</p> 
+						<p class="desc">Unlocking efficiency through code, I specialize in creating tailored solutions
+							to simplify and streamline your tasks. Whether automating repetitive processes, optimizing
+							workflows, or developing custom applications, my programming expertise ensures a seamless,
+							time-saving experience tailored to your specific needs.
+						</p>
 
-	            </div>	               
+					</div>
 
-			   </div> <!-- /service -->
+				</div> <!-- /service -->
 
-			   <div class="service">
+				<div class="service">
 
-			   	<span class="icon"><i class="icon-chat"></i></span>	   	           
+					<span class="icon"><i class="icon-paint-brush"></i></span>
 
-	            <div class="service-content">
+					<div class="service-content">
 
-	            	 <h3>Automate your Task</h3>
+						<h3>Play with Data</h3>
 
-		            <p class="desc">I possess extensive expertise in Python, proficient in task automation. With a deep understanding of the language, I can streamline and expedite processes, enhancing efficiency. Leveraging my skills, I am well-equipped to automate diverse tasks, ensuring optimal functionality and delivering results with precision.
-	        			</p> 
-	        			
-	            </div>	               
+						<p class="desc">Elevate your data landscape with my expertise. From dynamic visualizations that
+							breathe life into your insights to in-depth data analysis unlocking valuable patterns, I am
+							your partner in harnessing the full potential of your data. Let's turn information into
+							actionable intelligence together.
+						</p>
 
-			   </div> <!-- /service -->
+					</div>
 
-	      </div> <!-- /services-list -->
-   		
-   	</div> <!-- /services-content -->
-		
-	</section> <!-- /services -->	
+				</div> <!-- /service -->
 
-   <!-- contact
+				<div class="service">
+
+					<span class="icon"><i class="icon-toggles"></i></span>
+
+					<div class="service-content">
+
+						<h3>Machine Learning</h3>
+
+						<p class="desc">Transforming concepts into intelligent solutions, I specialize in building
+							models that decode complex data patterns. Whether crafting machine learning or statistical
+							models, my expertise ensures precision and predictive power. Let's collaborate to turn your
+							ideas into robust, data-driven models that propel your projects to new heights of innovation
+							and success.
+						</p>
+
+					</div>
+
+				</div> <!-- /service -->
+
+				<div class="service">
+
+					<span class="icon"><i class="icon-image"></i></span>
+
+					<div class="service-content">
+
+						<h3>Content Writing</h3>
+
+						<p class="desc">I've accumulated valuable content writing expertise over several months,
+							crafting engaging and informative pieces. My experience includes diverse topics, honing my
+							skills in creating compelling narratives. I thrive in delivering high-quality content that
+							resonates with readers, showcasing a passion for effective communication and a commitment to
+							excellence.
+						</p>
+
+					</div>
+
+				</div> <!-- /service -->
+
+				<div class="service">
+
+					<span class="icon"><i class="icon-chat"></i></span>
+
+					<div class="service-content">
+
+						<h3>Automate your Task</h3>
+
+						<p class="desc">I possess extensive expertise in Python, proficient in task automation. With a
+							deep understanding of the language, I can streamline and expedite processes, enhancing
+							efficiency. Leveraging my skills, I am well-equipped to automate diverse tasks, ensuring
+							optimal functionality and delivering results with precision.
+						</p>
+
+					</div>
+
+				</div> <!-- /service -->
+
+			</div> <!-- /services-list -->
+
+		</div> <!-- /services-content -->
+
+	</section> <!-- /services -->
+
+	<!-- contact
    ================================================== -->
 	<section id="contact">
 
 		<div class="row section-intro">
-   		<div class="col-twelve">
+			<div class="col-twelve">
 
-   			<h5>Contact</h5>
-   			<h1>I'd Love To Hear From You.</h1>
+				<h5>Contact</h5>
+				<h1>I'd Love To Hear From You.</h1>
 
-   			<p class="lead">Kindly drop a message.</p>
+				<p class="lead">Kindly drop a message.</p>
 
-   		</div> 
-   	</div> <!-- /section-intro -->
+			</div>
+		</div> <!-- /section-intro -->
 
-   	<div class="row contact-form">
+		<div class="row contact-form">
 
-   		<div class="col-twelve">
+			<div class="col-twelve">
 
-            <!-- form -->
-            <form name="contactForm" id="contactForm" method="post" action="">
-      			<fieldset>
-
-                  <div class="form-field">
- 						   <input name="contactName" type="text" id="contactName" placeholder="Name" value="" minlength="2" required="">
-                  </div>
-                  <div class="form-field">
-	      			   <input name="contactEmail" type="email" id="contactEmail" placeholder="Email" value="" required="">
-	               </div>
-                  <div class="form-field">
-	     				   <input name="contactSubject" type="text" id="contactSubject" placeholder="Subject" value="">
-	               </div>                       
-                  <div class="form-field">
-	                 	<textarea name="contactMessage" id="contactMessage" placeholder="message" rows="10" cols="50" required=""></textarea>
-	               </div>                      
-                 <div class="form-field">
-                     <button class="submitform">Submit</button>
-                     <div id="submit-loader">
-                        <div class="text-loader">Sending...</div>                             
-       				      <div class="s-loader">
-								  	<div class="bounce1"></div>
-								  	<div class="bounce2"></div>
-								  	<div class="bounce3"></div>
+				<!-- form -->
+				<form name="contactForm"  method="post" action="email">
+					<fieldset>
+							{% csrf_token %}
+						<div class="form-field">
+							<input name="contactName" type="text" id="contactName" placeholder="Name" value=""
+								minlength="2" required="">
+						</div>
+						<div class="form-field">
+							<input name="contactEmail" type="email" id="contactEmail" placeholder="Email" value=""
+								required="">
+						</div>
+						<div class="form-field">
+							<input name="contactSubject" type="text" id="contactSubject" placeholder="Subject" value="">
+						</div>
+						<div class="form-field">
+							<input name="userPhone" type="text" id="contactSubject" placeholder="Contact Number" value="">
+						</div>
+						<div class="form-field">
+							<textarea name="contactMessage" id="contactMessage" placeholder="message" rows="10"
+								cols="50" required=""></textarea>
+						</div>
+						<div class="form-field">
+							<button class="submitform">Submit</button>
+							<div id="submit-loader">
+								<div class="text-loader">Sending...</div>
+								<div class="s-loader">
+									<div class="bounce1"></div>
+									<div class="bounce2"></div>
+									<div class="bounce3"></div>
 								</div>
 							</div>
-                  </div>
+						</div>
 
-      			</fieldset>
-      		</form> <!-- Form End -->
+					</fieldset>
+				</form> <!-- Form End -->
 
-            <!-- contact-warning -->
-            <div id="message-warning">            	
-            </div>            
-            <!-- contact-success -->
-      		<div id="message-success">
-               <i class="fa fa-check"></i>Your message was sent, thank you!<br>
-      		</div>
+				<!-- contact-warning -->
+				<div id="message-warning">
+				</div>
+				<!-- contact-success -->
+				<div id="message-success">
+					<i class="fa fa-check"></i>Your message was sent, thank you!<br>
+				</div>
 
-         </div> <!-- /col-twelve -->
-   		
-   	</div> <!-- /contact-form -->
+			</div> <!-- /col-twelve -->
 
-   	<div class="row contact-info">
+		</div> <!-- /contact-form -->
 
-   		<div class="col-four tab-full">
+		<!-- ----------------------------------------------------------------------------- -->
+		{% if contacts %}
+		{% for userc in contacts %}
 
-   			<div class="icon">
-   				<i class="icon-pin"></i>
-   			</div>
+		<div class="row contact-info">
 
-   			<h5>Where to find me</h5>
+			<div class="col-four tab-full">
 
-   			<p>
-            1600 ABC Street<br>
-            Mountain View, Uttrakhand<br>
-            94043 India
-            </p>
+				<div class="icon">
+					<i class="icon-pin"></i>
+				</div>
 
-   		</div>
+				<h5>Where to find me</h5>
 
-   		<div class="col-four tab-full collapse">
+				<p>
+					{{userc.address}}
+				</p>
 
-   			<div class="icon">
-   				<i class="icon-mail"></i>
-   			</div>
+			</div>
 
-   			<h5>Email Me At</h5>
+			<div class="col-four tab-full collapse">
 
-   			<p>ananouymousking1@gmail.com<br>
-			   	mohit.dev.new@gmail.com			     
-			   </p>
+				<div class="icon">
+					<i class="icon-mail"></i>
+				</div>
 
-   		</div>
+				<h5>Email Me At</h5>
+				{% for userd in users %}
+				<p>{{userd.e_mail}} <br>
+					{% endfor %}
+					{{ user.email}}
+				</p>
 
-   		<div class="col-four tab-full">
 
-   			<div class="icon">
-   				<i class="icon-phone"></i>
-   			</div>
+			</div>
 
-   			<h5>Call Me At</h5>
+			<div class="col-four tab-full">
 
-   			<p>Phone: (+91) 9876543210<br>
-			   	Whatsapp: (+91) 9125020101<br>
-			     	
-			   </p>
+				<div class="icon">
+					<i class="icon-phone"></i>
+				</div>
 
-   		</div>
-   		
-   	</div> <!-- /contact-info -->
-		
+				<h5>Call Me At</h5>
+
+				<p>Phone: +91 {{userc.phone}}<br>
+					Whatsapp: +91 {{userc.whatsapp}}<br>
+
+				</p>
+
+			</div>
+
+		</div> <!-- /contact-info -->
+
+		{% endfor %} <!--ending for for contacts-->
+		{% endif %}
+
 	</section> <!-- /contact -->
 
 
-   <!-- footer
+	<!-- footer
    ================================================== -->
+	{% if users or contacts %}
+	<footer>
+		<div class="row">
+			<div class="col-six tab-full pull-right social">
+				{% if contacts %}
+				{% for userc in contacts %}
+				<ul class="footer-social">
+					<li><a href="{{userc.facebook}}" target="_blank" title="Facebook"><i class="fa fa-facebook"></i></a>
+					</li>
+					<li><a href="{{userc.twitter}}" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a>
+					</li>
+					<li><a href="{{userc.instagram}}" target="_blank" title="Instagram"><i
+								class="fa fa-instagram"></i></a></li>
+					<li><a href="{{userc.linkedin}}" target="_blank" title="Linkedin">Linkedin<i></i></a></li>
+				</ul>
 
-   <footer>
-     	<div class="row">
+			</div>
 
-     		<div class="col-six tab-full pull-right social">
+			<div class="col-six tab-full">
+				<div class="copyright">
+					<span>© Copyright 2023.</span>
+					<span>Backend by <a href="{{userc.linkedin}}" target="_blank">Click Here</a></span>
+				</div>
+			</div>
+			{% endfor %}
+			{% endif %}
+			<div id="go-top">
+				<a class="smoothscroll" title="Back to Top" href="#top"><i class="fa fa-long-arrow-up"></i></a>
+			</div>
 
-     			<ul class="footer-social">        
-					<li><a href="https://www.facebook.com/profile.php?id=100008695454006" target="_blank"><i class="fa fa-facebook" ></i></a></li>
-					<li><a href="https://twitter.com/dmohit013" target="_blank"><i class="fa fa-twitter"></i></a></li>
-					<li><a href="https://www.instagram.com/ezz_programming/" target="_blank"><i class="fa fa-instagram"></i></a></li>
-			   </ul> 
-	      		
-	      </div>
 
-      	<div class="col-six tab-full">
-	      	<div class="copyright">
-		        	<span>© Copyright Kards 2016.</span> 
-		        	<span>Design by <a href="http://www.styleshout.com/">styleshout</a></span>	         	
-		         </div>		                  
-	      	</div>
+		</div> <!-- /row -->
 
-	      	<div id="go-top">
-		         <a class="smoothscroll" title="Back to Top" href="#top"><i class="fa fa-long-arrow-up"></i></a>
-		      </div>
+	</footer>
+	{% endif %}
+	<div id="preloader">
+		<div id="loader"></div>
+	</div>
 
-      	</div> <!-- /row -->     	
-   </footer>  
-
-   <div id="preloader"> 
-    	<div id="loader"></div>
-   </div> 
-
-   <!-- Java Script
-   ================================================== --> 
-   <script src="{% static 'js/jquery-2.1.3.min.js' %}"></script>
-   <script src="{% static 'js/plugins.js' %}"></script>
-   <script src="{% static 'js/main.js' %}"></script>
-<!-- this else is for restricting random user to access the full page -->
-{% else %}
-{% endif %}
+	<!-- Java Script
+   ================================================== -->
+	<script src="{% static 'js/jquery-2.1.3.min.js' %}"></script>
+	<script src="{% static 'js/plugins.js' %}"></script>
+	<script src="{% static 'js/main.js' %}"></script>
+	<!-- this else is for restricting random user to access the full page -->
+	{% else %}
+	{% endif %}
 </body>
 
 

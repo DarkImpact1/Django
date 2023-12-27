@@ -43,3 +43,16 @@ class Projectdetail(models.Model):
     description = models.TextField()
     category = models.CharField(max_length=20)
     link = models.URLField()
+
+
+class Contactdetail(models.Model):
+    username = models.CharField(max_length = 50, default = "default")
+    linkedin  = models.URLField()
+    twitter = models.URLField()
+    github = models.URLField()
+    facebook = models.URLField()
+    instagram = models.URLField()
+    whatsapp = models.CharField(max_length = 15)
+    phone = models.CharField(max_length = 15)
+    address = models.TextField()
+

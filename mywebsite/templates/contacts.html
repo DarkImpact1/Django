@@ -94,56 +94,64 @@
 </head>
 <body>
     <div class="home">
-        <a class="centered-button" href="/"><button>Show PortFolio</button></a>
+        <a class="centered-button" href="/"><button>HOME</button></a>
     </div>
     <div class="container">
-        <h1> Project Details </h1>
+        <h1> Contact Information </h1>
 
-        <form action="projects" method="post">
+        <form action="contacts" method="post">
             {% csrf_token %}
             
-
+            <!-- Email -->
             <div class="form-grid">
                 
+                <!-- Social Media Profiles -->
                 <div>
-                    <label for="name">Project Name:</label>
-                    <input type="text" name="projectname" >
+                    <label for="linkedin">LinkedIn Profile:</label>
+                    <input type="text" id="linkedin" name="linkedin">
                 </div>
                 
                 <div>
-                    <label for="image">Image:</label>
-                    <input type="file" id="image" name="image" accept="image/*">
+                    <label for="twitter">Twitter Profile:</label>
+                    <input type="text" id="twitter" name="twitter">
                 </div>
                 
                 <div>
-                    <label for="htmlid">HTML ID:</label>
-                    <input type="text" name="htmlid" >
+                    <label for="github">GitHub Profile:</label>
+                    <input type="text" id="github" name="github">
                 </div>
                 
                 <div>
-                    <label for="href">Href:</label>
-                    <input type="text" name="href" >
+                    <label for="facebook">Facebook Profile:</label>
+                    <input type="text" id="facebook" name="facebook">
                 </div>
                 
                 <div>
-                    <label for="category">Category:</label>
-                    <input type="text" name="category" >
+                    <label for="instagram">Instagram Profile:</label>
+                    <input type="text" id="instagram" name="instagram">
                 </div>
-
+                
+                <!-- Phone Numbers -->
                 <div>
-                    <label for="link">Link:</label>
-                    <input type="url" name="link" >
+                    <label for="whatsapp">WhatsApp Number:</label>
+                    <input type="tel" id="whatsapp" name="whatsapp">
                 </div>
-
+                
                 <div>
-                    <label for="description">Project Description:</label>
-                    <textarea name="description" rows="4" ></textarea>
+                    <label for="contact">Contact Number:</label>
+                    <input type="tel" id="contact" name="contact">
+                </div>
+                
+                <!-- Address -->
+                <div>
+                    <label for="address">Address:</label>
+                    <textarea name="address" id="address"  rows="4"></textarea>
                     
                 </div>
             </div>
 
             <!-- Submit Button -->
-            <button type="submit">Save & Add more</button>
+            <button type="submit">Save & Proceed to Education Details</button>
         </form>
     </div>
 </body>

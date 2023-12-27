@@ -2,37 +2,11 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.models import User,auth
 from django.http import HttpResponse
-from .models import Userdetail,Educationdetail,Projectdetail
+from .models import Userdetail,Educationdetail,Projectdetail,Contactdetail
 
 
 
 # Create your views here.
-def login(request):
-    if (request.method == 'POST'):
-        l_username = request.POST['loginusername']
-        l_password = request.POST['loginpassword']
-        if (User.objects.filter(username = l_username)).exists():
-            user = auth.authenticate(username=l_username,password=l_password)
-            # it will return none if credentials do not match
-            if user is not None:
-                auth.login(request,user)
-                request.session['active_user'] = l_username
-
-                return redirect('/')
-            else:
-                messages.info(request,"Invalid credentials")
-                return redirect('login') 
-        else:
-            messages.error(request,"Kindly Register First!")
-            return redirect('login')
-    else:
-        return render(request,'login.html')
-
-def logout(request):
-    auth.logout(request)
-    return redirect('/')
-
-
 
 def register(request):
     if (request.method == 'POST'):
@@ -67,26 +41,70 @@ def register(request):
         print(request.method)
         return render(request, 'register.html')
     
-def userdetails(request):
+
+def login(request):
+    if (request.method == 'POST'):
+        l_username = request.POST['loginusername']
+        l_password = request.POST['loginpassword']
+        if (User.objects.filter(username = l_username)).exists():
+            user = auth.authenticate(username=l_username,password=l_password)
+            # it will return none if credentials do not match
+            if user is not None:
+                auth.login(request,user)
+                request.session['active_user'] = l_username
+
+                return redirect('/')
+            else:
+                messages.info(request,"Invalid credentials")
+                return redirect('login') 
+        else:
+            messages.error(request,"Kindly Register First!")
+            return redirect('login')
+    else:
+        return render(request,'login.html')
+
+def logout(request):
+    auth.logout(request)
+    return redirect('/')
+   
+def user_details(request):
     if (request.method == 'POST'):
         user_detail = Userdetail(username = request.session['active_user'],
                                 full_name = request.POST["name"].capitalize(),
                                 e_mail = request.POST["email"].lower(),
                                 skills = request.POST["skills"],
-                                profile_photo = request.POST["profile_photo"],
+                                profile_photo = request.FILES["profilephoto"],
                                 bio = request.POST["bio"],
                                 carrer_goal = request.POST['career_goal']
                                 )
 
         try:
             # user_detail.save()           
-            return redirect('educationdetails')
+            return redirect('contactdetails')
         except Exception as e:
             print(e)
         # return HttpResponse("Your are here at user details ")
     else:
-        return render(request,'details1.html')
-        # 
+        return render(request,'details.html')
+    
+
+def contact_details(request):
+    if (request.method == 'POST'):
+        contactdetails = Contactdetail(
+        username = request.session['active_user'],
+        linkedin = request.POST['linkedin'],
+        twitter = request.POST['twitter'],
+        github = request.POST['github'],
+        facebook = request.POST['facebook'],
+        instagram = request.POST['instagram'],
+        whatsapp = request.POST['whatsapp'],
+        phone = request.POST['contact'],
+        address = request.POST['address'],
+            )
+        # contactdetails.save()
+        return redirect('educationdetails')
+    else:
+        return render(request,'contacts.html')
 
 def education_details(request):
     if (request.method == 'POST'):
@@ -111,7 +129,7 @@ def education_details(request):
                                            )
         try:
             # educationdetails.save()
-            return redirect('projects')
+            return redirect('projectdetails')
         except Exception as e:
             print(e)
             return HttpResponse("got some error")
@@ -125,13 +143,14 @@ def project_details(request):
         username = request.session['active_user'],
         name = request.POST['projectname'],
         description = request.POST['description'],
-        image = request.POST['image'],
+        image = request.FILES['image'],
         htmlid = request.POST['htmlid'],
         href = request.POST['href'],
         category = request.POST['category'],
         link = request.POST['link'])
 
         # projectdetails.save()
-        return render(request,'projects.html')
+        return redirect('projectdetails')
     else:
         return render(request,'projects.html')
+    

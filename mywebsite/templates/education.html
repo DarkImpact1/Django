@@ -15,6 +15,7 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 20px;
+        margin: 55px;
     }
 
     .container {
@@ -55,13 +56,33 @@
     h2, h3 {
         color: #333;
     }
+    .home {
+        position: fixed;
+        top: 10px; /* Adjust this value to set the distance from the top */
+        right: 10px; /* Adjust this value to set the distance from the right */
+        padding: 10px;
+    }
+    
+    .centered-button {
+        display: block;
+        margin: 0 auto;
+    }
+    h1 {
+        position: fixed;
+        color: #333;
+        top: 10px; /* Adjust this value to set the distance from the top */
+        left: 50%; /* Adjust this value to set the distance from the left */
+        transform: translateX(-50%);
+    }
 </style>
 
 
 </head>
 <body>
-    
-   <form  method="post" action="educationdetails" enctype="multipart/form-data">
+    <div class="home"><a class="centered-button" href="/"><button>HOME</button></a></div>
+    <h1 style="color: white;">Education Details</h1>
+   <form  method="post" action="education" enctype="multipart/form-data">
+
     <div class="project-grid">
             {% csrf_token %}
         <div class="container">
@@ -120,7 +141,7 @@
         
         <div></div>
 
-        <button type="submit">Submit</button>
+        <button type="submit">Save & Proceed to Project Detail</button>
     </div>
     </form>
 </body>

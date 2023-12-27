@@ -94,56 +94,53 @@
 </head>
 <body>
     <div class="home">
-        <a class="centered-button" href="/"><button>Show PortFolio</button></a>
+        <a class="centered-button" href="/"><button>HOME</button></a>
     </div>
     <div class="container">
-        <h1> Project Details </h1>
+        <h1> User's Information </h1>
 
-        <form action="projects" method="post">
+        <form action="details" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             
-
+            <!-- Email -->
             <div class="form-grid">
                 
+                <!-- Social Media Profiles -->
+                
                 <div>
-                    <label for="name">Project Name:</label>
-                    <input type="text" name="projectname" >
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" >
                 </div>
                 
                 <div>
-                    <label for="image">Image:</label>
-                    <input type="file" id="image" name="image" accept="image/*">
+                    <label for="profilephoto">Profile Photo:</label>
+                    <input type="file" id="profile_photo" name="profilephoto" accept="image/*" >
                 </div>
                 
                 <div>
-                    <label for="htmlid">HTML ID:</label>
-                    <input type="text" name="htmlid" >
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" >
                 </div>
                 
                 <div>
-                    <label for="href">Href:</label>
-                    <input type="text" name="href" >
+                    <label for="career_goal">What do you want to become?</label>
+                    <input type="text" id="career_goal" name="career_goal" >
                 </div>
                 
                 <div>
-                    <label for="category">Category:</label>
-                    <input type="text" name="category" >
+                    <label for="skills">Skills (comma-separated):</label>
+                    <input type="text" id="skills" name="skills" >
                 </div>
 
                 <div>
-                    <label for="link">Link:</label>
-                    <input type="url" name="link" >
-                </div>
-
-                <div>
-                    <label for="description">Project Description:</label>
-                    <textarea name="description" rows="4" ></textarea>
+                    <label for="bio">About Yourself:</label>
+                    <textarea id="bio" name="bio" rows="4"  ></textarea>
                     
                 </div>
             </div>
 
             <!-- Submit Button -->
-            <button type="submit">Save & Add more</button>
+            <button type="submit">Save & Proceed to Contact Details</button>
         </form>
     </div>
 </body>
