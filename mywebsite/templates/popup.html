@@ -1,0 +1,24 @@
+<!-- popup.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Your head content -->
+    <script>
+        // JavaScript function to show the popup and redirect
+        function showPopupAndRedirect(message, redirectUrl) {
+            alert(message);
+            window.location.href = redirectUrl;
+        }
+    </script>
+</head>
+<body>
+    <!-- Your body content -->
+
+    {% if email_message %}
+        <script>
+            // Show the popup with the email message and redirect to the home page
+            showPopupAndRedirect("{{ email_message }}", "/");
+        </script>
+    {% endif %}
+</body>
+</html>

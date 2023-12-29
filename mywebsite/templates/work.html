@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Form</title>
+    <title>Work Details Form</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -22,6 +22,7 @@
             align-items: center;
             max-width: 800px;
             width: 100%;
+            margin-top: 5em;
         }
 
         h1 {
@@ -40,7 +41,7 @@
 
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(1, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
         }
 
@@ -82,12 +83,13 @@
             position: fixed;
             top: 10px; /* Adjust this value to set the distance from the top */
             right: 10px; /* Adjust this value to set the distance from the right */
-            padding: 10px;
+            gap: 10px;
         }
         
         .centered-button {
             display: block;
-            margin: 10px;
+            margin-right: 10px;
+            
         }
         .message {
             position: absolute;
@@ -106,36 +108,46 @@
 <body>
     <div class="message">
         {% for message in messages %}
-        <a href="register" title="Register">{{message}}</a>    
+        <span>{{message}}</span> 
         {% endfor %}
     </div>
     <div class="home">
-        <a class="centered-button" href="register"><button>Register</button></a>
-        <a class="centered-button" href="/"><button>HOME</button></a>
+        <a class="centerd-button"  href="services"><button>Proceed to Service Details</button></a>
+        <a class="centered-button" href="/"><button>Show PortFolio</button></a>
     </div>
     <div class="container">
-        <h1> Login </h1>
+        <h1> Work Details </h1>
 
-        <form action="login" method="post">
+        <form action="works" method="post">
             {% csrf_token %}
             
 
             <div class="form-grid">
                 
                 <div>
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="loginusername" required><br>
+                    <label for="jobname">Job:</label>
+                    <input type="text" name="jobname" placeholder="Solo developer/">
                 </div>
 
+                <div>
+                    <label for="location">Location/Company name</label>
+                    <input type="text" name="location" placeholder="College/Company/Freelancing" >
+                </div>
 
                 <div>
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="loginpassword" required><br>   
+                    <label for="skills">Skills</label>
+                    <input type="text" name="skills" placeholder="Skills learned during work">
+                </div>
+
+                <div>
+                    <label for="description">Job Description:</label>
+                    <textarea name="description" rows="4" ></textarea>
+                    
                 </div>
             </div>
 
             <!-- Submit Button -->
-            <button type="submit">Login</button>
+            <button type="submit">Save & Add more</button>
         </form>
     </div>
 </body>

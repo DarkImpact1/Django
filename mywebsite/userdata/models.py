@@ -56,3 +56,14 @@ class Contactdetail(models.Model):
     phone = models.CharField(max_length = 15)
     address = models.TextField()
 
+class WorkDetail(models.Model):
+    username = models.CharField(max_length = 50, default = "default")
+    jobname = models.CharField(max_length = 50)
+    location = models.CharField()
+    l_skills = models.CharField(max_length = 100)
+    description = models.TextField()
+
+class Servicedetails(models.Model):
+    username = models.CharField(max_length = 50, default = "default")
+    servicename = models.CharField(max_length = 30)
+    description = models.TextField()

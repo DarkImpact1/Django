@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Form</title>
+    <title>User Information Form</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -100,42 +100,43 @@
             margin-top: 20px;
             font-size: 30px;
         }
+        
 
     </style>
 </head>
 <body>
     <div class="message">
         {% for message in messages %}
-        <a href="register" title="Register">{{message}}</a>    
+        <span>{{message}}</span> 
         {% endfor %}
     </div>
     <div class="home">
-        <a class="centered-button" href="register"><button>Register</button></a>
-        <a class="centered-button" href="/"><button>HOME</button></a>
+        <a class="centered-button" href="/"><button>Show PortFolio</button></a>
     </div>
     <div class="container">
-        <h1> Login </h1>
+        <h1> Services Offered by You </h1>
 
-        <form action="login" method="post">
+        <form action="services" method="post">
             {% csrf_token %}
             
 
             <div class="form-grid">
                 
                 <div>
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="loginusername" required><br>
+                    <label for="service">Service:</label>
+                    <input type="text" name="service" placeholder="Services offered by you like (Automation, Full Stack)">
                 </div>
 
 
                 <div>
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="loginpassword" required><br>   
+                    <label for="description">Service Description:</label>
+                    <textarea name="description" rows="4" ></textarea>
+                    
                 </div>
             </div>
 
             <!-- Submit Button -->
-            <button type="submit">Login</button>
+            <button type="submit">Save & Add more</button>
         </form>
     </div>
 </body>

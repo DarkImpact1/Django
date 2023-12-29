@@ -1,87 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 100px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Information Form</title>
 
-    form {
-      max-width: 400px;
-      margin: 0 auto;
-    }
 
-    label {
-      display: block;
-      margin-bottom: 8px;
-    }
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #000000;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
 
-    input {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 16px;
-      box-sizing: border-box;
-    }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 800px;
+            width: 100%;
+        }
 
-    input[type="submit"] {
-      background-color: #4caf50;
-      color: #fff;
-      cursor: pointer;
-    }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
 
-    input[type="submit"]:hover {
-      background-color: #45a049;
-    }
+        form {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
 
-    .message {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #ffffff;
-      color: #ff0000;
-      padding: 10px;
-      border-radius: 5px;
-      margin-top: 20px;
-  }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
 
-  </style>
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #555;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+        .home {
+            display: flex;
+            padding: 10px;
+            margin: 10px;
+            position: fixed;
+            top: 10px; /* Adjust this value to set the distance from the top */
+            right: 10px; /* Adjust this value to set the distance from the right */
+            padding: 10px;
+        }
+        
+        .centered-button {
+            display: block;
+            margin: 10px;
+        }
+        .message {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #070707;
+            color: #ff0000;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        #login{
+            border: 2px solid #45a049;
+             padding: 10px; 
+             margin: left 10px; 
+             text-align: center; 
+             background-color:#45a049; 
+             color:white;
+             border-radius: 4px;
+        }
+
+    </style>
 </head>
-<body>
-  <div class="message">
-    {% for message in messages %}
-    <h3>{{message}} </h3>
-    {% endfor %}
-  </div>
+<body id="pdf-content">
+    <div class="message">
+        {% for message in messages %}
+        <h3>{{message}} </h3>
+        {% endfor %}
+      </div>
+    <div class="home">
+        <a class="centered-button" href="login"><button>Login</button></a>
+        <a class="centered-button" href="/"><button>HOME</button></a>
+    </div>
+    <div class="container">
+        <h1> Register Yourself </h1>
 
-  <form action="register" method="post">
-    {% csrf_token %}
-    <label for="firstName">First Name:</label>
-    <input type="text" id="firstName" name="firstName" required>
+        <form action="register" method="post">
+            {% csrf_token %}
+            
+            <!-- Email -->
+            <div class="form-grid">
+                
+                <!-- Social Media Profiles -->
+                <div>
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+                
+                <div>
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+                
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <!-- Phone Numbers -->
+                <div>
+                    <label for="confirmPassword">Confirm Password:</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                </div>
 
-    <label for="lastName">Last Name:</label>
-    <input type="text" id="lastName" name="lastName" required>
+            </div>
 
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required>
-
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
-
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required>
-
-    <label for="confirmPassword">Confirm Password:</label>
-    <input type="password" id="confirmPassword" name="confirmPassword" required>
-
-    <input type="submit" value="Submit">
-  </form>
-
-
-
+            <!-- Submit Button -->
+            <button type="submit">Register</button>
+        </form>
+    </div>
+   
 </body>
 </html>

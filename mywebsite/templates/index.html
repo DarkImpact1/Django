@@ -30,6 +30,9 @@
    ================================================== -->
 	<script src="{% static 'js/modernizr.js' %}"></script>
 	<script src="{% static 'js/pace.min.js' %}"></script>
+	<!-- Add this in the <head> section of your HTML -->
+	<script src="https://rawgit.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+
 
 	<!-- favicons
 	================================================== -->
@@ -57,15 +60,17 @@
 						{% if users %}
 						<li><a class="smoothscroll" href="#about" title="">About</a></li>
 						{% endif %}
-						<li><a class="smoothscroll" href="#resume" title="">Resume</a></li>
-						{% if projects %}
-						<li><a class="smoothscroll" href="#portfolio" title="">Portfolio</a></li>
-						{% endif %}
-						<li><a class="smoothscroll" href="#services" title="">Services</a></li>
 						{% if contacts %}
+						<li><a class="smoothscroll" href="#resume" title="">Resume</a></li>
 						<li><a class="smoothscroll" href="#contact" title="">Contact</a></li>
 						{% endif %}
-						<li class="current"><a class="smoothscroll" href="accounts/logout" title="">Logout</a></li>
+						{% if allprojects %}
+						<li><a class="smoothscroll" href="#portfolio" title="">Portfolio</a></li>
+						{% endif %}
+						{% if services %}
+						<li><a class="smoothscroll" href="#services" title="">Services</a></li>
+						{% endif %}
+						<li><a href="accounts/logout" title="">Logout</a></li>
 						{% else %}
 						<li class="current"><a class="smoothscroll" href="#intro" title="">Home</a></li>
 
@@ -127,20 +132,32 @@
 						style="border: 2px solid rgb(240, 10, 48); padding: 15px; margin:10px; color:white ">Enter your
 						Project details</a>
 
+					{%elif not works %}
+					<a href="accounts/works" title="Details"
+						style="border: 2px solid rgb(240, 10, 48); padding: 15px; margin:10px; color:white ">Enter your
+						Work details</a>
+
+					{%elif not services %}
+					<a href="accounts/services" title="Details"
+						style="border: 2px solid rgb(240, 10, 48); padding: 15px; margin:10px; color:white ">Enter your
+						Services details</a>
+
 					{% else %}
-					<a class="button stroke smoothscroll" href="#about" title="">About Me</a>
+					<a class="button stroke smoothscroll1" href="#about" title="">About Me</a>
+					<a class="button stroke " href="accounts/projects" title="">Add More Projects</a>
+					<a class="button stroke " href="accounts/services" title="">Add More Services</a>
+					<a class="button stroke " href="accounts/works" title="">Add More Works</a>
 
 					{% endif %}
 					{% else %}
+
 					<h1>User</h1>
-					<a class="button stroke smoothscroll" href="accounts/register" title="">Click Here to register</a>
+					<p class="intro-position">
+						<span>Register & Login </span>
+					</p>
+					<a class="button stroke " href="accounts/register" title="">Click Here to register</a>
 					</a>
 					{% endif %}
-
-
-
-
-
 				</div>
 
 			</div>
@@ -209,10 +226,14 @@
 						<strong>Job:</strong>
 						<span>Freelancer, Data analysis, Data visualizations</span>
 					</li>
+					{% if contacts %}
 					<li>
+						{%for userc in contacts%}
 						<strong>LinkedIn</strong>
-						<a href="https://github.com/DarkImpact1" target="_blank"><span>click here</span></a>
+						<a href="{{userc.linkedin}}" target="_blank"><span>click here</span></a><span>for Linkedin Profile</span>
+						{% endfor %}
 					</li>
+					{% endif %}
 					<li>
 						<strong>Email:</strong>
 						<span>{{ userd.e_mail }}</span>
@@ -242,7 +263,7 @@
 		<div class="row button-section">
 			<div class="col-twelve">
 				<a href="#contact" title="Hire Me" class="button stroke smoothscroll">Hire Me</a>
-				<a href="#" title="Download CV" class="button button-primary">Download CV</a>
+				<a href="#" title="Download CV" class="button button-primary"><button  onclick="generatePDF()">Download Portfolio</button></a>
 			</div>
 		</div>
 
@@ -252,6 +273,7 @@
 
 	<!-- resume Section
    ================================================== -->
+	{% if works %}
 	<section id="resume" class="grey-section">
 
 		<div class="row section-intro">
@@ -277,27 +299,7 @@
 
 				<div class="timeline-wrap">
 
-					<div class="timeline-block">
-
-						<div class="timeline-ico">
-							<i class="fa fa-graduation-cap"></i>
-						</div>
-
-						<div class="timeline-header">
-							<h3>Freelancer</h3>
-							<p></p>
-						</div>
-
-						<div class="timeline-content">
-							<h4>Email Automation</h4>
-							<p>I provided freelance assistance by developing a bespoke email automation solution for a
-								client. The customized code enables efficient, one-click dispatch of multiple emails to
-								diverse recipients, each with distinct subject lines and content. This tailored
-								automation streamlines communication processes, enhancing productivity and facilitating
-								targeted outreach with precision.</p>
-						</div>
-
-					</div> <!-- /timeline-block -->
+					{% for userwork in works %}
 
 					<div class="timeline-block">
 
@@ -306,49 +308,27 @@
 						</div>
 
 						<div class="timeline-header">
-							<h3>Mini Game</h3>
-							<p>November 2022</p>
+							<h3>{{userwork.location}}</h3>
+							<p>{{userwork.l_skills}}</p>
 						</div>
 
 						<div class="timeline-content">
-							<h4>College Project</h4>
-							<p>I crafted a Python-based mini-game, integrating a graphical user interface, for an
-								engaging rendition of Rock, Paper, Scissors. This project showcases my proficiency in
-								software development and UI design. The game offers an interactive and visually
-								appealing experience, exemplifying my commitment to creating both functional and
-								aesthetically pleasing applications.</p>
+							<h4>{{userwork.jobname}}</h4>
+							<p>{{userwork.description}}</p>
 						</div>
 
 					</div> <!-- /timeline-block -->
-
-					<div class="timeline-block">
-
-						<div class="timeline-ico">
-							<i class="fa fa-graduation-cap"></i>
-						</div>
-
-						<div class="timeline-header">
-							<h3>Content Writer</h3>
-							<p>July 2021 - December 2021</p>
-						</div>
-
-						<div class="timeline-content">
-							<h4>Chegg India Pvt. Ltd.</h4>
-							<p>I have six months of professional experience as a content writer at Chegg India Pvt.
-								Ltd., where I honed my skills in creating high-quality content. During this time, I also
-								acquired expertise in Search Engine Optimization (SEO), enhancing my ability to craft
-								content that aligns with best practices for online visibility and reach.</p>
-						</div>
-
-					</div> <!-- /timeline-block -->
+					{% endfor %}
 
 				</div> <!-- /timeline-wrap -->
 
 			</div> <!-- /col-twelve -->
 
 		</div> <!-- /resume-timeline -->
+		{% endif %}
 
 		{% if users_education %}
+
 		{% for userd in users_education %}
 
 		<div class="row resume-timeline">
@@ -423,11 +403,12 @@
 			</div> <!-- /col-twelve -->
 
 		</div> <!-- /resume-timeline -->
+		{% endfor %}<!-- ending for of education -->
+		{% endif %}<!-- ending if of education -->
 
 	</section> <!-- /features -->
 
-	{% endfor %}<!-- ending for of education -->
-	{% endif %}<!-- ending if of education -->
+
 
 
 	{% if allprojects %}
@@ -496,7 +477,7 @@
 					</div> <!-- /modal -->
 
 					{% endfor %}
-
+					{% endif %}
 
 					<!-- modal popups - end
 	            ============================================================= -->
@@ -511,6 +492,7 @@
 
 	<!-- services Section
    ================================================== -->
+	{% if services %}
 	<section id="services">
 
 		<div class="overlay"></div>
@@ -531,124 +513,34 @@
 
 			<div id="owl-slider" class="owl-carousel services-list">
 
+				{% for service in services %}
+
 				<div class="service">
 
 					<span class="icon"><i class="icon-earth"></i></span>
 
 					<div class="service-content">
 
-						<h3>Programming</h3>
+						<h3>{{service.servicename}}</h3>
 
-						<p class="desc">Unlocking efficiency through code, I specialize in creating tailored solutions
-							to simplify and streamline your tasks. Whether automating repetitive processes, optimizing
-							workflows, or developing custom applications, my programming expertise ensures a seamless,
-							time-saving experience tailored to your specific needs.
+						<p class="desc">{{service.description}}
 						</p>
 
 					</div>
 
 				</div> <!-- /service -->
-
-				<div class="service">
-
-					<span class="icon"><i class="icon-window"></i></span>
-
-					<div class="service-content">
-
-						<h3>Backend of web-dev</h3>
-
-						<p class="desc">Unlocking efficiency through code, I specialize in creating tailored solutions
-							to simplify and streamline your tasks. Whether automating repetitive processes, optimizing
-							workflows, or developing custom applications, my programming expertise ensures a seamless,
-							time-saving experience tailored to your specific needs.
-						</p>
-
-					</div>
-
-				</div> <!-- /service -->
-
-				<div class="service">
-
-					<span class="icon"><i class="icon-paint-brush"></i></span>
-
-					<div class="service-content">
-
-						<h3>Play with Data</h3>
-
-						<p class="desc">Elevate your data landscape with my expertise. From dynamic visualizations that
-							breathe life into your insights to in-depth data analysis unlocking valuable patterns, I am
-							your partner in harnessing the full potential of your data. Let's turn information into
-							actionable intelligence together.
-						</p>
-
-					</div>
-
-				</div> <!-- /service -->
-
-				<div class="service">
-
-					<span class="icon"><i class="icon-toggles"></i></span>
-
-					<div class="service-content">
-
-						<h3>Machine Learning</h3>
-
-						<p class="desc">Transforming concepts into intelligent solutions, I specialize in building
-							models that decode complex data patterns. Whether crafting machine learning or statistical
-							models, my expertise ensures precision and predictive power. Let's collaborate to turn your
-							ideas into robust, data-driven models that propel your projects to new heights of innovation
-							and success.
-						</p>
-
-					</div>
-
-				</div> <!-- /service -->
-
-				<div class="service">
-
-					<span class="icon"><i class="icon-image"></i></span>
-
-					<div class="service-content">
-
-						<h3>Content Writing</h3>
-
-						<p class="desc">I've accumulated valuable content writing expertise over several months,
-							crafting engaging and informative pieces. My experience includes diverse topics, honing my
-							skills in creating compelling narratives. I thrive in delivering high-quality content that
-							resonates with readers, showcasing a passion for effective communication and a commitment to
-							excellence.
-						</p>
-
-					</div>
-
-				</div> <!-- /service -->
-
-				<div class="service">
-
-					<span class="icon"><i class="icon-chat"></i></span>
-
-					<div class="service-content">
-
-						<h3>Automate your Task</h3>
-
-						<p class="desc">I possess extensive expertise in Python, proficient in task automation. With a
-							deep understanding of the language, I can streamline and expedite processes, enhancing
-							efficiency. Leveraging my skills, I am well-equipped to automate diverse tasks, ensuring
-							optimal functionality and delivering results with precision.
-						</p>
-
-					</div>
-
-				</div> <!-- /service -->
+				{% endfor %}
 
 			</div> <!-- /services-list -->
 
 		</div> <!-- /services-content -->
 
 	</section> <!-- /services -->
+	{% endif %}
 
 	<!-- contact
    ================================================== -->
+	{% if contacts %}
 	<section id="contact">
 
 		<div class="row section-intro">
@@ -667,9 +559,9 @@
 			<div class="col-twelve">
 
 				<!-- form -->
-				<form name="contactForm"  method="post" action="email">
+				<form name="contactForm" method="post" action="email">
 					<fieldset>
-							{% csrf_token %}
+						{% csrf_token %}
 						<div class="form-field">
 							<input name="contactName" type="text" id="contactName" placeholder="Name" value=""
 								minlength="2" required="">
@@ -682,7 +574,8 @@
 							<input name="contactSubject" type="text" id="contactSubject" placeholder="Subject" value="">
 						</div>
 						<div class="form-field">
-							<input name="userPhone" type="text" id="contactSubject" placeholder="Contact Number" value="">
+							<input name="userPhone" type="text" id="contactSubject" placeholder="Contact Number"
+								value="">
 						</div>
 						<div class="form-field">
 							<textarea name="contactMessage" id="contactMessage" placeholder="message" rows="10"
@@ -716,7 +609,7 @@
 		</div> <!-- /contact-form -->
 
 		<!-- ----------------------------------------------------------------------------- -->
-		{% if contacts %}
+
 		{% for userc in contacts %}
 
 		<div class="row contact-info">
@@ -821,8 +714,60 @@
 	<script src="{% static 'js/plugins.js' %}"></script>
 	<script src="{% static 'js/main.js' %}"></script>
 	<!-- this else is for restricting random user to access the full page -->
-	{% else %}
-	{% endif %}
+
+
+
+<!-- Add this just before the closing </body> tag -->
+<script>
+function generatePDF() {
+    // Options for pdf generation
+ // Options for pdf generation
+var options = {
+    margin: 10,
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: {
+        unit: 'mm', // Set the measurement unit to millimeters
+        format: 'a4', // Set the page format (you can also use 'letter', 'legal', etc.)
+        orientation: 'portrait', // Set the page orientation (you can use 'landscape' as well)
+        // Specify the width and height of each page in millimeters
+        width: 230, // Width of the page (for 'a4', the width is 210mm)
+        height: 310 // Height of the page (for 'a4', the height is 297mm)
+    }
+};
+
+
+    // Create an array of section container IDs
+    var sectionIds = ['intro', 'about', 'resume', 'portfolio', 'services', 'contact'];
+
+    // Create a new HTML element to hold all sections
+    var allSectionsContainer = document.createElement('div');
+
+    // Loop through each section ID
+    for (var i = 0; i < sectionIds.length; i++) {
+        var sectionId = sectionIds[i];
+
+        // Target the section container by ID
+        var sectionContainer = document.getElementById(sectionId);
+
+        // Clone the section container and append it to the new container
+        var clonedSection = sectionContainer.cloneNode(true);
+        allSectionsContainer.appendChild(clonedSection);
+    }
+
+    // Append the container holding all sections to the document
+    document.body.appendChild(allSectionsContainer);
+
+    // Call the html2pdf library to generate the PDF for all sections
+    html2pdf(allSectionsContainer, options);
+
+    // Remove the appended container from the document
+    document.body.removeChild(allSectionsContainer);
+}
+</script>
+
+	
+
 </body>
 
 

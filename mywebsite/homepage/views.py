@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from userdata.models import Educationdetail,Userdetail,Contactdetail,Projectdetail
+from userdata.models import Educationdetail,Userdetail,Contactdetail,Projectdetail,WorkDetail,Servicedetails
 from django.contrib import messages
 
 # Create your views here.
@@ -30,52 +30,64 @@ def home(request):
         if Contactdetail.objects.filter(username = active_user):
             contact = Contactdetail.objects.filter(username = active_user)
             info['contacts'] = contact
+
+        if WorkDetail.objects.filter(username = active_user):
+            work = WorkDetail.objects.filter(username = active_user)
+            info['works'] = work
+
+        if Servicedetails.objects.filter(username = active_user):
+            service = Servicedetails.objects.filter(username = active_user)
+            info['services'] = service
         
         return render(request,'index.html',info)
     else:
         return render(request,'index.html')
 
-import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
+# for sending email using django backend 
+
+from django.core.mail import send_mail, BadHeaderError
+import logging,os
+from decouple import config
+
+
+logger = logging.getLogger(__name__)
+
 def e_mail(request):
-    if request.method=="POST":
-            name = request.POST['contactName'].capitalize()
-            phone = request.POST['userPhone']
-            user_message = request.POST['contactMessage']
-            user_email = request.POST['contactEmail']
-            subject = request.POST['contactSubject']
+    if request.method == "POST":
+        name = request.POST['contactName'].capitalize()
+        phone = request.POST['userPhone']
+        user_message = request.POST['contactMessage']
+        user_email = request.POST['contactEmail']
+        subject = request.POST['contactSubject']
 
-            sender_email = "ananonymousking1@gmail.com"
-            sender_password = "xsikqqfbahtvvtqf"
-            receiver_mail = "mohit.dev.new@gmail.com"
+        sender_email = os.environ.get('EMAIL_HOST_USER', '')
+        receiver_mail = "mohit.dev.new@gmail.com"
 
-            # Create a message object
-            message = MIMEMultipart()
-            message["From"] = sender_email
-            message["To"] = receiver_mail
-            message["Subject"] = subject
+        # Construct the email body
+        body = f'''Hey Dude,\n{name} had sent you a message through your portfolio website.
+        \n\n{user_message}\n\nSender's details:\nName: {name}\nContact Number: {phone}\nEmail: {user_email}'''
 
-            # Add body text to the email
-            body = f'''Hey Dude,\n{name} had send you a message through your portfolio website.
-            \n\n{user_message}\n\nSender's details : \nName: {name}\nContact Number:{phone}\nemail: {user_email}'''
-            message.attach(MIMEText(body, "plain"))
-            try:
-                # Create the SMTP server and login
-                smtp_server = "smtp.gmail.com"
-                smtp_port = 587
-                server = smtplib.SMTP(smtp_server, smtp_port)
-                server.starttls()
-                server.login(sender_email, sender_password)
+        try:
+            # Use Django's send_mail function
+            send_mail(subject, body, sender_email, [receiver_mail], fail_silently=False)
+            email_message = "Your message was sent successfully. You will receive a response within 24 hours."
+        except BadHeaderError as e:
+            logger.error(f"BadHeaderError: {e}")
+            email_message = "An error occurred while sending the email. Please try again later."
+        request.session['email_message'] = email_message
+        return redirect('show_popup')
+    else:
+        return redirect('/')
 
-                # Send the email and close the connection
-                text = message.as_string()
-                server.sendmail(sender_email, receiver_mail, text)
-                messages.success(request, "Your message was sent successfully. You'll receive a response within 24 hours.")
 
-            except Exception as e:
-                print(e)
 
-            finally:
-                server.quit()
-            return redirect('/')
+def show_popup(request):
+    # Retrieve the email message from the session
+    email_message = request.session.pop('email_message', None)
+
+    if email_message:
+        # You can pass the email message to the template context if needed
+        return render(request, 'popup.html', {'email_message': email_message})
+    else:
+        # Handle the case where there is no email message
+        return redirect('/')

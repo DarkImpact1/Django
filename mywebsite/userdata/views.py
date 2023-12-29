@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.models import User,auth
 from django.http import HttpResponse
-from .models import Userdetail,Educationdetail,Projectdetail,Contactdetail
+from .models import Userdetail,Educationdetail,Projectdetail,Contactdetail,WorkDetail,Servicedetails
 
 
 
@@ -113,19 +113,19 @@ def education_details(request):
                                            degree_name = request.POST['degreeName'],
                                            college_start_year = request.POST['collegeStart'],
                                            college_end_year = request.POST['collegeEnd'],
-                                           about_college = request.POST['aboutCollege'].capitalize(),
+                                           about_college = request.POST['aboutCollege'],
                                            
                                            xii_school_name = request.POST['12thSchoolName'].title(),
                                            xii_school_board_name = request.POST['12thBoard'],
                                            xii_school_start = request.POST['12thStart'],
                                            xii_school_end = request.POST['12thEnd'],
-                                           about_xii_school = request.POST['about12th'].capitalize(),
+                                           about_xii_school = request.POST['about12th'],
                                            
                                            x_school_name = request.POST['10thSchoolName'].title(),
                                            x_school_board_name = request.POST['10thBoard'],
                                            x_school_start = request.POST['10thStart'],
                                            x_school_end = request.POST['10thEnd'],
-                                           about_x_school = request.POST['about10th'].capitalize(),
+                                           about_x_school = request.POST['about10th'],
                                            )
         try:
             # educationdetails.save()
@@ -141,16 +141,41 @@ def project_details(request):
     if (request.method == 'POST'):
         projectdetails = Projectdetail(
         username = request.session['active_user'],
-        name = request.POST['projectname'],
+        name = request.POST['projectname'].title(),
         description = request.POST['description'],
-        image = request.FILES['image'],
+        # image = request.FILES['image'],
         htmlid = request.POST['htmlid'],
         href = request.POST['href'],
-        category = request.POST['category'],
+        category = request.POST['category'].upper(),
         link = request.POST['link'])
 
         # projectdetails.save()
+        messages.info(request,"Project details Saved ")
         return redirect('projectdetails')
     else:
         return render(request,'projects.html')
     
+def work_details(request):
+    if (request.method == 'POST'):
+        workdetais = WorkDetail(
+        username = request.session['active_user'],
+        jobname = request.POST['jobname'].title(),
+        location = request.POST['location'].title(),
+        l_skills = request.POST['skills'].upper(),
+        description = request.POST['description'])
+        # workdetais.save()
+        messages.info(request,"Work details Saved ")
+        return redirect('workdetails')  
+    else:
+        return render(request,'work.html')
+    
+def service_details(request):
+    if (request.method == 'POST'):
+        servicedetails = Servicedetails(
+        username = request.session['active_user'],
+        servicename = request.POST['service'].title(),
+        description = request.POST['description'])
+        # servicedetails.save()
+        messages.info(request,"Service details Saved ")
+        return redirect('servicedetails')
+    return render(request,'services.html')

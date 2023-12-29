@@ -82,7 +82,7 @@ body {
  * -------------------------------------------------------------------
  */
 a, a:visited {
-	color: #0004ff;
+	color: #000000;
 	-moz-transition: all 0.3s ease-in-out;
 	-o-transition: all 0.3s ease-in-out;
 	-webkit-transition: all 0.3s ease-in-out;
@@ -519,6 +519,7 @@ input[type="url"],
 input[type="password"],
 textarea,
 select {
+
 	display: block;
 	height: 6rem;
 	padding: 1.5rem 0;
@@ -1012,7 +1013,6 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 .skill-bars li .percent95  { width: 95%; }
 .skill-bars li .percent100 { width: 100%; }
 
-
 /** 
  * ===================================================================
  * 08. common styles (_layout.scss)
@@ -1122,7 +1122,6 @@ header .logo a {
 	/* background: url("../images/logo.png") no-repeat center; */
 	background-size: 92px 15px;
 }
-
 
 /**
  * menu toggle - (_layout.css)

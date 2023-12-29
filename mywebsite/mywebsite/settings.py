@@ -21,7 +21,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-gfi236h*_r#kj9-(vx2^qx6@ssta$mzckc@@9_=*^2!#$ok2t#'
+from decouple import config
+from dotenv import load_dotenv
+load_dotenv()
+
+SECRET_KEY = config('SECRET_KEY', default='')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -82,12 +86,23 @@ WSGI_APPLICATION = 'mywebsite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME' : 'Portfolio', # name of the database
-        'USER' : 'postgres',# enter the name of user who have access to database
-        'PASSWORD' : '2003',
+        'NAME' : config('DATABASE_NAME',default =""), # name of the database
+        'USER' : config('DATABASE_USER_NAME',default =""),# enter the name of user who have access to database
+        'PASSWORD' : config("DATABASE_PASSWORD",default=''),
         'HOST' : 'localhost',
         # 'NAME': BASE_DIR / 'db.sqlite3',
 
+    }
+}
+
+# Use cache-backed sessions
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+
+# Cache configuration (using the default locmem cache for development)
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
     }
 }
 
@@ -144,3 +159,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # adding media root to work with media
 MEDIA_URL = ''
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')#second arg is name of folder you want to create
+
+
+# your_project/settings.py
+# from decouple import config --- already imported
+# from dotenv import load_dotenv
+# load_dotenv()
+
+
+# Email settings for Gmail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
