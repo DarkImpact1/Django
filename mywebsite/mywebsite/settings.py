@@ -83,17 +83,25 @@ WSGI_APPLICATION = 'mywebsite.wsgi.application'
 
 # before adding your database install the connector of database to python like for postgres
 # connector is psycopg2  so write command in terminal 'pip install psycopg2'
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME' : config('DATABASE_NAME',default =""), # name of the database
-        'USER' : config('DATABASE_USER_NAME',default =""),# enter the name of user who have access to database
-        'PASSWORD' : config("DATABASE_PASSWORD",default=''),
-        'HOST' : 'localhost',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME' : config('DATABASE_NAME',default =""), # name of the database
+#         'USER' : config('DATABASE_USER_NAME',default =""),# enter the name of user who have access to database
+#         'PASSWORD' : config("DATABASE_PASSWORD",default=''),
+#         'HOST' : 'localhost',
+#         # 'NAME': BASE_DIR / 'db.sqlite3',
 
-    }
+#     }
+# }
+import dj_database_url
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL')
+    )
 }
+
 
 # Use cache-backed sessions
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
