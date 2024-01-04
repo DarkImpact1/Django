@@ -79,7 +79,7 @@ def user_details(request):
                                 )
 
         try:
-            # user_detail.save()           
+            user_detail.save()           
             return redirect('contactdetails')
         except Exception as e:
             print(e)
