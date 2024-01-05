@@ -1110,16 +1110,13 @@ header .logo {
 	position: relative;
 }
 header .logo a {
-	display: block;
+	display: flex;
 	margin: 0;
 	padding: 0;
-	border: none;
-	font: 0/0 a;
 	text-shadow: none;
-	color: transparent;
-	width: 92px;
+	color: #FF0077;
+	width: 204px;
 	height: 15px;
-	/* background: url("../images/logo.png") no-repeat center; */
 	background-size: 92px 15px;
 }
 
