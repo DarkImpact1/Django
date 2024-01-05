@@ -155,8 +155,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'Designs'),
 ]
 # after informing django the path, we are telling that you have to create a new folder assets where you will keep thosse files
-STATIC_ROOT = os.path.join(BASE_DIR,'assets')
-# run these command in terminal in order to make django do your collectstatci
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
+# run these command in terminal in order to make django do your collectstatic
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
