@@ -101,7 +101,7 @@ def contact_details(request):
         phone = request.POST['contact'],
         address = request.POST['address'],
             )
-        # contactdetails.save()
+        contactdetails.save()
         return redirect('educationdetails')
     else:
         return render(request,'contacts.html')
@@ -128,7 +128,7 @@ def education_details(request):
                                            about_x_school = request.POST['about10th'],
                                            )
         try:
-            # educationdetails.save()
+            educationdetails.save()
             return redirect('projectdetails')
         except Exception as e:
             print(e)
@@ -143,13 +143,13 @@ def project_details(request):
         username = request.session['active_user'],
         name = request.POST['projectname'].title(),
         description = request.POST['description'],
-        # image = request.FILES['image'],
+        image = request.FILES['image'],
         htmlid = request.POST['htmlid'],
         href = request.POST['href'],
         category = request.POST['category'].upper(),
         link = request.POST['link'])
 
-        # projectdetails.save()
+        projectdetails.save()
         messages.info(request,"Project details Saved ")
         return redirect('projectdetails')
     else:
@@ -163,7 +163,7 @@ def work_details(request):
         location = request.POST['location'].title(),
         l_skills = request.POST['skills'].upper(),
         description = request.POST['description'])
-        # workdetais.save()
+        workdetais.save()
         messages.info(request,"Work details Saved ")
         return redirect('workdetails')  
     else:
@@ -175,7 +175,7 @@ def service_details(request):
         username = request.session['active_user'],
         servicename = request.POST['service'].title(),
         description = request.POST['description'])
-        # servicedetails.save()
+        servicedetails.save()
         messages.info(request,"Service details Saved ")
         return redirect('servicedetails')
     return render(request,'services.html')
