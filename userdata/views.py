@@ -163,7 +163,7 @@ def work_details(request):
         location = request.POST['location'].title(),
         l_skills = request.POST['skills'].upper(),
         description = request.POST['description'])
-        # workdetais.save()
+        workdetais.save()
         messages.info(request,"Work details Saved ")
         return redirect('workdetails')  
     else:
@@ -175,7 +175,7 @@ def service_details(request):
         username = request.session['active_user'],
         servicename = request.POST['service'].title(),
         description = request.POST['description'])
-        # servicedetails.save()
+        servicedetails.save()
         messages.info(request,"Service details Saved ")
         return redirect('servicedetails')
     return render(request,'services.html')
