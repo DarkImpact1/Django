@@ -102,9 +102,23 @@ def contact_details(request):
         address = request.POST['address'],
             )
         contactdetails.save()
-        return redirect('educationdetails')
+        return redirect('workdetails')
     else:
         return render(request,'contacts.html')
+
+def work_details(request):
+    if (request.method == 'POST'):
+        workdetais = WorkDetail(
+        username = request.session['active_user'],
+        jobname = request.POST['jobname'].title(),
+        location = request.POST['location'].title(),
+        l_skills = request.POST['skills'].upper(),
+        description = request.POST['description'])
+        workdetais.save()
+        messages.info(request,"Work details Saved ")
+        return redirect('workdetails')  
+    else:
+        return render(request,'work.html')
 
 def education_details(request):
     if (request.method == 'POST'):
@@ -155,19 +169,7 @@ def project_details(request):
     else:
         return render(request,'projects.html')
     
-def work_details(request):
-    if (request.method == 'POST'):
-        workdetais = WorkDetail(
-        username = request.session['active_user'],
-        jobname = request.POST['jobname'].title(),
-        location = request.POST['location'].title(),
-        l_skills = request.POST['skills'].upper(),
-        description = request.POST['description'])
-        workdetais.save()
-        messages.info(request,"Work details Saved ")
-        return redirect('workdetails')  
-    else:
-        return render(request,'work.html')
+
     
 def service_details(request):
     if (request.method == 'POST'):
