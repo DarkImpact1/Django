@@ -119,46 +119,43 @@
     <div class="container">
         <h1> Project Details </h1>
 
-        <form action="projects" method="post">
+        <form action="projects" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            
 
             <div class="form-grid">
-                
                 <div>
                     <label for="name">Project Name:</label>
-                    <input type="text" name="projectname" >
+                    <input type="text" name="projectname" placeholder="Enter project name" required>
                 </div>
                 
                 <div>
                     <label for="image">Image:</label>
-                    <input type="file" id="image" name="image" accept="image/*">
+                    <input type="file" id="project_image" name="image" accept="image/*" required>
                 </div>
                 
                 <div>
                     <label for="htmlid">HTML ID:</label>
-                    <input type="text" name="htmlid" >
+                    <input type="text" name="htmlid" placeholder="Enter HTML ID" required>
                 </div>
                 
                 <div>
                     <label for="href">Href:</label>
-                    <input type="text" name="href" >
+                    <input type="text" name="href" placeholder="Enter href " required>
                 </div>
                 
                 <div>
                     <label for="category">Category:</label>
-                    <input type="text" name="category" >
+                    <input type="text" name="category" placeholder="Enter category (Python, C++, etc)" required>
                 </div>
 
                 <div>
                     <label for="link">Link:</label>
-                    <input type="url" name="link" >
+                    <input type="url" name="link" placeholder="link to your project" required>
                 </div>
 
                 <div>
                     <label for="description">Project Description:</label>
-                    <textarea name="description" rows="4" ></textarea>
-                    
+                    <textarea name="description" placeholder="Enter project description" rows="4" required></textarea>
                 </div>
             </div>
 
